@@ -1,23 +1,33 @@
 package com.safetynetalerts.webapp.repository;
 
 import com.safetynetalerts.webapp.model.MedicalRecord;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
-@Data
-public class MedicalRecordRepository {
+public class MedicalRecordRepository implements IMedicalRecordRepository {
 
-    @Autowired
-    private DataLoaderRepository dataLoaderRepository;
+    private ArrayList<MedicalRecord> medicalRecords;
 
-    public List<MedicalRecord> getMedicalRecords() throws IOException {
+    public MedicalRecordRepository(ArrayList<MedicalRecord> medicalRecords) {
+        this.medicalRecords = medicalRecords;
+    }
+
+    @Override
+    public List<MedicalRecord> getMedicalRecords(){
+        return this.medicalRecords;
+    }
+
+    @Override
+    public MedicalRecord getMedicalRecord(String birthdate) {
+        for (MedicalRecord medicalRecord : this.medicalRecords) {
+            if (Objects.equals(medicalRecord.getBirthdate(), birthdate)) {
+                return medicalRecord;
+            }
+        }
         return null;
-        //new ArrayList<>(dataLoaderRepository.dataAccess().getMedicalrecords());
     }
 }

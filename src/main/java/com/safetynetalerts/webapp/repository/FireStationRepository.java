@@ -1,23 +1,34 @@
 package com.safetynetalerts.webapp.repository;
 
 import com.safetynetalerts.webapp.model.FireStation;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
-@Data
-public class FireStationRepository {
+public class FireStationRepository implements IFireStationRepository {
 
-    @Autowired
-    private DataLoaderRepository dataLoaderRepository;
+    private ArrayList<FireStation> fireStations;
 
-    public List<FireStation> getFireStations() throws IOException {
+    public FireStationRepository(ArrayList<FireStation> fireStations) {
+        this.fireStations = fireStations;
+    }
+
+    @Override
+    public List<FireStation> getFireStations(){
+        return this.fireStations;
+    }
+
+    @Override
+    public FireStation getFireStation(Integer station) {
+        for(FireStation fireStation : this.fireStations){
+            if (Objects.equals(fireStation.getStation(),station)) {
+                return fireStation;
+            }
+        }
+
         return null;
-        //new ArrayList<>(dataLoaderRepository.dataAccess().getFirestations());
     }
 }

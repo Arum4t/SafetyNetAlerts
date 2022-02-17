@@ -1,23 +1,42 @@
 package com.safetynetalerts.webapp.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynetalerts.webapp.model.MedicalRecord;
+import com.safetynetalerts.webapp.repository.DataLoaderRepository;
 import com.safetynetalerts.webapp.repository.MedicalRecordRepository;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Service
-public class MedicalRecordService {
+public class MedicalRecordService implements IMedicalRecordService {
 
-    @Autowired
+    private DataLoaderRepository dataLoaderRepository;
     private MedicalRecordRepository medicalRecordRepository;
+    private ArrayList<MedicalRecord> medicalRecords;
 
-    public List<MedicalRecord> getAllMedicalRecords() throws IOException {
+    public MedicalRecordService() throws IOException {
+        this.dataLoaderRepository = new DataLoaderRepository(new ObjectMapper());
+        if(this.medicalRecords == null){
+            this.medicalRecords = new ArrayList<>();
+        }
+        this.medicalRecords.addAll(new ArrayList<>(this.dataLoaderRepository.getResponse().getMedicalrecords()));
+        this.medicalRecordRepository = new MedicalRecordRepository(this.medicalRecords);
+    }
+
+
+    @Override
+    public List<MedicalRecord> getAllMedicalRecords(){
         return medicalRecordRepository.getMedicalRecords();
 
     }
+
+    @Override
+    public MedicalRecord getMedicalRecord(String birthdate) {
+       return this.medicalRecordRepository.getMedicalRecord(birthdate);
+    }
+
 }

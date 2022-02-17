@@ -11,19 +11,47 @@ import java.util.List;
 
 
 @Service
-public class PersonService {
+public class PersonService implements IPersonService{
 
 private DataLoaderRepository dataLoaderRepository;
 private PersonRepository personRepository;
+private ArrayList<Person> persons;
 
     public PersonService() throws IOException {
         this.dataLoaderRepository = new DataLoaderRepository(new ObjectMapper());
-
         this.personRepository = new PersonRepository(new ArrayList<>(this.dataLoaderRepository.getResponse().getPersons()));
     }
 
-    public List<Person> getAllPersons() throws IOException {
+    @Override
+    public List<Person> getAllPersons(){
     return this.personRepository.getPersons();
 }
+
+    @Override
+    public Person getPerson(String email) {
+        return this.personRepository.getPerson(email);
+    }
+
+    @Override
+    public Person savePerson(Person person){
+        if(getPerson(person.getEmail()) != null){
+            return null;
+            //erreur 404 (spring)
+        } else {
+        return this.personRepository.savePerson(person);
+        }
+    }
+
+    @Override
+    public Person updatePerson() {
+        // tricky, toujours en partant de l'email. Mettre à jours les infos
+        return null;
+    }
+
+    @Override
+    public boolean deletePerson() {
+        // remove de l'array
+        return false;
+    }
 
 }

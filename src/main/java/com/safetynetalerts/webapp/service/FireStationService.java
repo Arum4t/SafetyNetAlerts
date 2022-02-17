@@ -1,22 +1,40 @@
 package com.safetynetalerts.webapp.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynetalerts.webapp.model.FireStation;
+import com.safetynetalerts.webapp.repository.DataLoaderRepository;
 import com.safetynetalerts.webapp.repository.FireStationRepository;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @Service
-public class FireStationService {
+public class FireStationService implements IFireStationService {
 
-    @Autowired
+    private DataLoaderRepository dataLoaderRepository;
     private FireStationRepository fireStationRepository;
+    private ArrayList<FireStation> stations;
 
-    public List<FireStation> getAllFireStations() throws IOException {
-        return fireStationRepository.getFireStations();
+    public FireStationService() throws IOException {
+        this.dataLoaderRepository = new DataLoaderRepository(new ObjectMapper());
+        if(this.stations == null){
+            this.stations = new ArrayList<>();
+        }
+        this.stations.addAll(new ArrayList<>(this.dataLoaderRepository.getResponse().getFirestations()));
+        this.fireStationRepository = new FireStationRepository(this.stations);
+    }
+
+
+    @Override
+    public List<FireStation> getAllFireStations() {
+        return this.fireStationRepository.getFireStations();
+    }
+
+    @Override
+    public FireStation getFireStation(Integer station) {
+        return this.fireStationRepository.getFireStation(station);
     }
 }

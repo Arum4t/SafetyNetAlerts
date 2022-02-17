@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 @Repository
-public class DataLoaderRepository {
+public class DataLoaderRepository implements IDataLoaderRepository {
 
         private ObjectMapper objectMapper;
         private Response response;
@@ -19,7 +19,7 @@ public class DataLoaderRepository {
             this.objectMapper = objectMapper;
         }
 
-
+       @Override
         public Response getResponse() throws IOException {
             response = objectMapper.readValue(new File("src/main/resources/json_list.json"), Response.class);
             return response;
