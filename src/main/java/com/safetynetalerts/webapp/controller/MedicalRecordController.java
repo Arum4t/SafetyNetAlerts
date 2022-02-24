@@ -4,9 +4,7 @@ import com.safetynetalerts.webapp.model.MedicalRecord;
 import com.safetynetalerts.webapp.model.Person;
 import com.safetynetalerts.webapp.service.MedicalRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,14 +17,32 @@ public class MedicalRecordController {
 
 
     // http://localhost:8080/medicalRecord
-    @GetMapping("/medicalRecord")
+    @GetMapping("/medicalRecords")
     public List<MedicalRecord> getAllMedicalRecords(){
         return medicalRecordService.getAllMedicalRecords();
     }
 
-    // http://localhost:8080/medicalRecord/
-    @GetMapping("/medicalRecord/{birthdate}")
-    public MedicalRecord getMedicalRecord (@PathVariable String birthdate){
-        return this.medicalRecordService.getMedicalRecord(birthdate);
+    // http://localhost:8080/medicalRecord?birthdate=<>
+    @GetMapping("/medicalRecords")
+    public List<MedicalRecord> getAllMedicalRecords(@RequestParam String birthdate){
+        return this.medicalRecordService.getAllMedicalRecords();
+    }
+    @PostMapping("/medicalRecords")
+    public MedicalRecord saveMedicalRecords(@RequestBody MedicalRecord medicalRecord){
+        return medicalRecordService.saveMedicalRecords(medicalRecord);
+    }
+
+    @PutMapping("/medicalRecords")
+    public MedicalRecord updateMedicalRecords(@RequestBody MedicalRecord medicalRecord) {
+        return medicalRecordService.updateMedicalRecords(medicalRecord);
+    }
+
+    @DeleteMapping("/medicalRecords/{birthdate}")
+    public String deleteMedicalRecords(@PathVariable("birthdate") String birthdate) {
+        Boolean ok = medicalRecordService.deleteMedicalRecords(birthdate);
+        if(ok){
+            return "ok";
+        }
+        return "not ok";
     }
 }

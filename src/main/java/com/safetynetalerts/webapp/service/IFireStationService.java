@@ -9,4 +9,12 @@ public interface IFireStationService {
     List<FireStation> getAllFireStations();
 
     FireStation getFireStation(Integer station);
+
+    FireStation saveFireStation(FireStation fireStation);
+
+    Boolean deleteFireStation(Integer station);
+
+    FireStation updateFireStation(FireStation fireStation);
+
+
 }

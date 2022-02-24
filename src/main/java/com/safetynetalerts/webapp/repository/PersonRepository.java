@@ -1,15 +1,21 @@
 package com.safetynetalerts.webapp.repository;
 
+import com.safetynetalerts.webapp.controller.LoggingController;
 import com.safetynetalerts.webapp.model.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Repository
 public class PersonRepository implements IPersonRepository{
 
+    private static final Logger log = LoggerFactory.getLogger(LoggingController.class);
 
     private ArrayList<Person> persons;
 
@@ -42,32 +48,64 @@ public class PersonRepository implements IPersonRepository{
     }
 
     @Override
-    public Person updatePerson(String lastName, String firstName) {
-        for (Person person : this.persons){
-            // Si le nom et le prénom sont les mêmes
-            if ((Objects.equals(person.getLastName(), lastName))&&((Objects.equals(person.getFirstName(), firstName)))){
-                return person;
-            } else {
+    public Person updatePerson(Person person) {
+            // Si l'email existe
+            //Set les nouvelles valeurs de cette personne
+
+        person.setEmail(person.getEmail());
+        person.setPhone(person.getPhone());
+        person.setZip(person.getZip());
+        person.setCity(person.getCity());
+        person.setAddress(person.getAddress());
+        person.setLastName(person.getLastName());
+        person.setFirstName(person.getFirstName());
 
 
-                //Set les nouvelles valeurs de cette personne
+        /*this.persons.set(0, person);
+        this.persons.set(1, person);
+        this.persons.set(2, person);
+        this.persons.set(3, person);
+        this.persons.set(4, person);
+        this.persons.set(5, person);
+        this.persons.set(6, person);*/
 
-
-            }
-        }
-        return null;
+    return person;
     }
 
     @Override
-    public Person deletePerson(String email) {
-        for(Person person : this.persons){
-            if (!Objects.equals(person.getEmail(), email)) {
-                this.persons.remove(getPerson(email));
+    public Person deletePerson(Person person) {
+
+        this.persons.remove(person);
+        return person;
+    }
+
+    @Override
+    public List<Person> getPersonsByAddress(String address) {
+
+        List<Person> personsByAddress = new ArrayList<>();
+
+        for (Person person : this.persons) {
+            if(Objects.equals(person.getAddress(), address)){
+                personsByAddress.add(person);
             }
-            return person;
         }
-        return null;
+        return personsByAddress;
+    }
+
+    @Override
+    public List<String> getEmailByCity (String city) {
+        List<String> emailCityList = new ArrayList<>();
+
+        for (Person person : getPersons()) {
+            if(person.getCity().compareTo(city) == 0){
+              emailCityList.add(person.getEmail());
+            }
+        }
+        if(emailCityList.isEmpty()){
+            log.info("Request get email failed.");
+        } return emailCityList;
+        }
+
     }
 
 
-}

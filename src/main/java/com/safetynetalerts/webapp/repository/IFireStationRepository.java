@@ -9,4 +9,10 @@ public interface IFireStationRepository {
     List<FireStation> getFireStations();
 
     FireStation getFireStation(Integer station);
+
+    FireStation saveFireStation(FireStation fireStation);
+
+    FireStation deleteFireStation(FireStation fireStation);
+
+    FireStation updateFireStation(FireStation fireStation);
 }

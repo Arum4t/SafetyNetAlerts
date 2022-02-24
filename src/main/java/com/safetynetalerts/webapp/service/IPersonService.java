@@ -2,7 +2,6 @@ package com.safetynetalerts.webapp.service;
 
 import com.safetynetalerts.webapp.model.Person;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IPersonService {
@@ -13,8 +12,12 @@ public interface IPersonService {
 
     Person savePerson(Person person);
 
-    Person updatePerson();
+    Person updatePerson(Person person);
 
-    boolean deletePerson();
+    Boolean deletePerson(String email);
+
+    List<Person> getPersonsByAddress(String address);
+
+    List<String> getEmailByCity (String city);
 
 }

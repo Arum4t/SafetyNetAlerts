@@ -7,7 +7,15 @@ import java.util.List;
 
 public interface IMedicalRecordRepository {
 
-    List<MedicalRecord> getMedicalRecords();
+    List<MedicalRecord> getAllMedicalRecords();
 
-    MedicalRecord getMedicalRecord(String birthdate);
+    MedicalRecord getMedicalRecords(String birthdate);
+
+    MedicalRecord deleteMedicalRecords(MedicalRecord medicalRecord);
+
+    MedicalRecord updateMedicalRecords(MedicalRecord medicalRecord);
+
+    MedicalRecord saveMedicalRecords(MedicalRecord medicalRecord);
+
+    int getAgeFromBirthdate(String birthdate);
 }

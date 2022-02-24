@@ -11,8 +11,12 @@ public interface IPersonRepository {
 
     Person savePerson(Person person);
 
-    Person updatePerson(String lastName, String firstName);
+    Person updatePerson(Person person);
 
-    Person deletePerson(String email);
+    Person deletePerson(Person person);
+
+    List<Person> getPersonsByAddress(String address);
+
+    List<String> getEmailByCity (String city);
 
 }

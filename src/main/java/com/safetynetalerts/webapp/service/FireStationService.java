@@ -37,4 +37,24 @@ public class FireStationService implements IFireStationService {
     public FireStation getFireStation(Integer station) {
         return this.fireStationRepository.getFireStation(station);
     }
+
+    @Override
+    public FireStation saveFireStation(FireStation fireStation) {
+        return null;
+    }
+
+    @Override
+    public Boolean deleteFireStation(Integer station) {
+        FireStation fireStation = getFireStation(station);
+        if (fireStation == null ){
+            return false;
+        }
+        this.fireStationRepository.deleteFireStation(fireStation);
+        return true;
+    }
+
+    @Override
+    public FireStation updateFireStation(FireStation fireStation) {
+        return null;
+    }
 }
