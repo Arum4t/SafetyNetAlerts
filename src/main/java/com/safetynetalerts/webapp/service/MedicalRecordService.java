@@ -1,12 +1,12 @@
 package com.safetynetalerts.webapp.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.safetynetalerts.webapp.controller.LoggingController;
 import com.safetynetalerts.webapp.model.MedicalRecord;
 import com.safetynetalerts.webapp.model.Person;
 import com.safetynetalerts.webapp.repository.DataLoaderRepository;
 import com.safetynetalerts.webapp.repository.MedicalRecordRepository;
 
+import com.safetynetalerts.webapp.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,17 @@ import java.util.List;
 @Service
 public class MedicalRecordService implements IMedicalRecordService {
 
-    private static final Logger log = LoggerFactory.getLogger(LoggingController.class);
+    private static final Logger log = LoggerFactory.getLogger(MedicalRecordService.class);
 
     private DataLoaderRepository dataLoaderRepository;
     private MedicalRecordRepository medicalRecordRepository;
+    private PersonRepository personRepository;
     private ArrayList<MedicalRecord> medicalRecords;
 
     public MedicalRecordService() throws IOException {
         this.dataLoaderRepository = new DataLoaderRepository(new ObjectMapper());
         this.medicalRecordRepository = new MedicalRecordRepository(new ArrayList<>(this.dataLoaderRepository.getResponse().getMedicalrecords()));
+        this.personRepository = new PersonRepository(new ArrayList<>(this.dataLoaderRepository.getResponse().getPersons()));
     }
 
     @Override
@@ -63,21 +65,19 @@ public class MedicalRecordService implements IMedicalRecordService {
         }
         return this.medicalRecordRepository.saveMedicalRecords(medicalRecord);
     }
-
     @Override
-    public List<String> getMedicationsFromPerson(Person person) throws IOException {
-        for(MedicalRecord medicalRecord : dataLoaderRepository.getResponse().getMedicalrecords()){
+    public List<String> getMedicationsFromPerson(Person person){
+        for(MedicalRecord medicalRecord : this.medicalRecords){
             if (person.getFirstName().equals(medicalRecord.getFirstName()) &&
-            person.getLastName().equals(medicalRecord.getLastName())){
+                    person.getLastName().equals(medicalRecord.getLastName())){
                 return medicalRecord.getMedications();
             }
         }
         return null;
     }
-
     @Override
-    public List<String> getAllergiesFromPerson(Person person) throws IOException {
-        for(MedicalRecord medicalRecord : dataLoaderRepository.getResponse().getMedicalrecords()){
+    public List<String> getAllergiesFromPerson(Person person){
+        for(MedicalRecord medicalRecord : this.medicalRecords){
             if (person.getFirstName().equals(medicalRecord.getFirstName()) &&
                     person.getLastName().equals(medicalRecord.getLastName())){
                 return medicalRecord.getAllergies();
@@ -85,6 +85,5 @@ public class MedicalRecordService implements IMedicalRecordService {
         }
         return null;
     }
-
 
 }

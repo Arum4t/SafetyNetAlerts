@@ -30,7 +30,7 @@ public class FireStationService implements IFireStationService {
 
     @Override
     public List<FireStation> getAllFireStations() {
-        return this.fireStationRepository.getFireStations();
+        return this.fireStationRepository.getAllFireStations();
     }
 
     @Override

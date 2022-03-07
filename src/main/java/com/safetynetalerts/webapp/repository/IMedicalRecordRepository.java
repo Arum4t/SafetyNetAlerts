@@ -1,8 +1,10 @@
 package com.safetynetalerts.webapp.repository;
 
 import com.safetynetalerts.webapp.model.MedicalRecord;
+import com.safetynetalerts.webapp.model.Person;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IMedicalRecordRepository {
@@ -17,5 +19,9 @@ public interface IMedicalRecordRepository {
 
     MedicalRecord saveMedicalRecords(MedicalRecord medicalRecord);
 
-    int getAgeFromBirthdate(String birthdate);
+    default int calculateAgeFromBirthdate(LocalDate birthdate, LocalDate currentDate) {
+        return 0;
+    }
+
+
 }

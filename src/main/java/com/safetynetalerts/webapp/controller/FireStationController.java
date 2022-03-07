@@ -22,7 +22,7 @@ public class FireStationController {
     }
 
     // http://localhost:8080/firestation?station=<>
-    @GetMapping("/firestations")
+    @GetMapping("/firestation")
     public FireStation getStation(@RequestParam Integer station) {
         return this.fireStationService.getFireStation(station);
     }
@@ -33,11 +33,11 @@ public class FireStationController {
     }
 
     @PutMapping("/firestations")
-    public FireStation updateFireStation (FireStation fireStation) {
+    public FireStation updateFireStation (@RequestBody FireStation fireStation) {
         return this.fireStationService.updateFireStation(fireStation);
     }
 
-    @DeleteMapping("/firestations")
+    @DeleteMapping("/firestations/{station}")
     public String deleteFireStation (@PathVariable("station") Integer station) {
         Boolean ok = fireStationService.deleteFireStation(station);
         if (ok) {

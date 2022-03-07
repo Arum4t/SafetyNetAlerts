@@ -1,13 +1,11 @@
 package com.safetynetalerts.webapp.repository;
-
-import com.safetynetalerts.webapp.controller.LoggingController;
 import com.safetynetalerts.webapp.model.MedicalRecord;
+import com.safetynetalerts.webapp.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,7 +14,7 @@ import java.util.*;
 @Repository
 public class MedicalRecordRepository implements IMedicalRecordRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(LoggingController.class);
+    private static final Logger log = LoggerFactory.getLogger(MedicalRecordRepository.class);
 
     private ArrayList<MedicalRecord> medicalRecords;
 
@@ -61,20 +59,17 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
         return medicalRecord;
     }
 
-    @Override
-    public int getAgeFromBirthdate(String birthdate) {
+
+    public int calculateAgeFromBirthdate(String birthdate){
         LocalDate currentDate = LocalDate.now();
-        try {
+        if( birthdate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             formatter = formatter.withLocale(Locale.FRANCE);
             LocalDate birthDate = LocalDate.parse(birthdate, formatter);
             return Period.between(birthDate, currentDate).getYears();
-        } catch (DateTimeParseException e){
-            log.info("Birthdate invalid.");
-        } catch (RuntimeException e){
-            log.info("Birtdate invcalid.");
         }
         return 0;
     }
+
 
 }

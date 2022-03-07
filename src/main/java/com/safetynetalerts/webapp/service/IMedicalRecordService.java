@@ -1,9 +1,7 @@
 package com.safetynetalerts.webapp.service;
-
 import com.safetynetalerts.webapp.model.MedicalRecord;
 import com.safetynetalerts.webapp.model.Person;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface IMedicalRecordService {
@@ -18,8 +16,9 @@ public interface IMedicalRecordService {
 
     MedicalRecord saveMedicalRecords(MedicalRecord medicalRecord);
 
-    List<String> getMedicationsFromPerson(Person person) throws IOException;
+    List<String> getMedicationsFromPerson(Person person);
 
-    List<String> getAllergiesFromPerson(Person person) throws IOException;
+    List<String> getAllergiesFromPerson(Person person);
+
 
 }

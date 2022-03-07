@@ -23,8 +23,8 @@ public class MedicalRecordController {
     }
 
     // http://localhost:8080/medicalRecord?birthdate=<>
-    @GetMapping("/medicalRecords")
-    public List<MedicalRecord> getAllMedicalRecords(@RequestParam String birthdate){
+    @GetMapping("/medicalRecord")
+    public List<MedicalRecord> getMedicalRecords(@RequestParam String birthdate){
         return this.medicalRecordService.getAllMedicalRecords();
     }
     @PostMapping("/medicalRecords")

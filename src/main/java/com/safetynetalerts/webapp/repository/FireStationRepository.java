@@ -25,7 +25,7 @@ public class FireStationRepository implements IFireStationRepository {
     }
 
     @Override
-    public List<FireStation> getFireStations(){
+    public List<FireStation> getAllFireStations(){
         return this.fireStations;
     }
 
