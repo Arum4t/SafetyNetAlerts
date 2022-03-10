@@ -59,6 +59,16 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
         return medicalRecord;
     }
 
+    @Override
+    public MedicalRecord getMedicalRecordsByFirstNameAndLastName(String firstName, String lastName) {
+        for (MedicalRecord medicalRecord : this.medicalRecords) {
+            if(Objects.equals(medicalRecord.getFirstName(), firstName) && Objects.equals(medicalRecord.getLastName(), lastName)){
+                return medicalRecord;
+            }
+        }
+        return null;
+    }
+
 
     public int calculateAgeFromBirthdate(String birthdate){
         LocalDate currentDate = LocalDate.now();

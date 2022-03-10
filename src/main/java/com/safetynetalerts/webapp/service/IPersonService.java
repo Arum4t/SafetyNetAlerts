@@ -24,9 +24,7 @@ public interface IPersonService {
 
     List<String> getEmailByCity (String city);
 
-    Map<String, List<Child>> listChildAlert ();
-
-    MedicalRecord getPersonMedicalRecords (String firstName, String lastName) throws IOException;
+    Map<String, List<Child>> listChildAlert (String address);
 
 
 }

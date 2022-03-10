@@ -1,12 +1,13 @@
 package com.safetynetalerts.webapp.controller;
 
+import com.safetynetalerts.webapp.model.Child;
 import com.safetynetalerts.webapp.model.Person;
 import com.safetynetalerts.webapp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -53,5 +54,10 @@ public class PersonController {
             return "ok";
         }
         return "not ok";
+    }
+    //http://localhost:8080/childAlert?address=1509 Culver St
+    @GetMapping("childAlert")
+    public Map<String, List<Child>> listChildAlert (@RequestParam String address){
+        return this.personService.listChildAlert(address);
     }
 }

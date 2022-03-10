@@ -9,10 +9,8 @@ import com.safetynetalerts.webapp.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.*;
 
 
@@ -87,23 +85,13 @@ public class PersonService implements IPersonService {
         return this.personRepository.getEmailByCity(city);
     }
 
-    @Override
-    public MedicalRecord getPersonMedicalRecords(String firstName, String lastName) {
-        for (MedicalRecord medicalRecords : this.medicalRecords) {
-            if (Objects.equals(firstName, medicalRecords.getFirstName()) &&
-                    Objects.equals(lastName, medicalRecords.getLastName())) {
-                return medicalRecords;
-            }
-
-        }
-        return null;
-    }
 
     @Override
-    public Map<String, List<Child>> listChildAlert () {
-        List<Person> persons = this.personRepository.getPersons();
+    public Map<String, List<Child>> listChildAlert (String address) {
+        List<Person> persons = this.personRepository.getPersonsByAddress(address);
 
         Map<String, List<Child>> childFamily = new HashMap<>(); // HERE !! Tableau famille enfants
+
 
         for (Person person : persons) {
             // 1. recuperer le nom de famille
@@ -111,33 +99,42 @@ public class PersonService implements IPersonService {
 
             // 2. recuperer le medical record
             MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+            String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
+            int age = this.medicalRecordRepository.calculateAgeFromBirthdate(birthdate);
 
             // 3. verifier si il a -18 ans. ToDo :: code birthdate() method ..
-            if (2022 - medicalRecord.getBirthdate() < 18) {
+            if (age < 18) {
+
                 // 4a. verifie si la famille exist, je l'ajoute
                 List<Child> childrenFamily = childFamily.get(familyName);
                 if(childrenFamily != null) {
                     Child child = new Child();
-                    child.setAge();
+                    child.setFirstName(person.getFirstName());
+                    child.setLastName(person.getLastName());
+                    child.setAge(age);
                     childrenFamily.add(child);
                     continue;
                 }
                 // 4b. verifie si la famille exist PAS, je la cree
                 childrenFamily = new ArrayList<>();
                 Child child = new Child();
-                child.setAge();
+                child.setFirstName(person.getFirstName());
+                child.setLastName(person.getLastName());
+                child.setAge(age);
                 childrenFamily.add(child);
                 childFamily.putIfAbsent(familyName, childrenFamily);
             }
+
         }
 
         return childFamily;
     }
 
     /*
-    * {"schnurr": [], "bini": '[]}
-    *
-    * */
+     * {"schnurr": [], "bini": '[]}
+     *
+     * */
+
 
 
 }
