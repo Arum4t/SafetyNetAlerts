@@ -15,4 +15,7 @@ public interface IFireStationRepository {
     FireStation deleteFireStation(FireStation fireStation);
 
     FireStation updateFireStation(FireStation fireStation);
+
+    FireStation getFireStationByAddress(String address);
+
 }

@@ -57,4 +57,15 @@ public class FireStationRepository implements IFireStationRepository {
     public FireStation updateFireStation(FireStation fireStation) {
         return null;
     }
+
+    @Override
+    public FireStation getFireStationByAddress(String address) {
+        for(FireStation fireStation : this.fireStations){
+            if(Objects.equals(fireStation.getAddress(), address)){
+                return fireStation;
+            }
+        }
+        return null;
+    }
+
 }

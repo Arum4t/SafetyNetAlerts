@@ -1,9 +1,8 @@
 package com.safetynetalerts.webapp.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.safetynetalerts.webapp.model.Child;
-import com.safetynetalerts.webapp.model.MedicalRecord;
-import com.safetynetalerts.webapp.model.Person;
+import com.safetynetalerts.webapp.model.*;
 import com.safetynetalerts.webapp.repository.DataLoaderRepository;
+import com.safetynetalerts.webapp.repository.FireStationRepository;
 import com.safetynetalerts.webapp.repository.MedicalRecordRepository;
 import com.safetynetalerts.webapp.repository.PersonRepository;
 import org.slf4j.Logger;
@@ -22,6 +21,7 @@ public class PersonService implements IPersonService {
     private DataLoaderRepository dataLoaderRepository;
     private PersonRepository personRepository;
     private MedicalRecordRepository medicalRecordRepository;
+    private FireStationRepository fireStationRepository;
     private ArrayList<Person> persons;
     private ArrayList<MedicalRecord> medicalRecords;
 
@@ -29,6 +29,7 @@ public class PersonService implements IPersonService {
         this.dataLoaderRepository = new DataLoaderRepository(new ObjectMapper());
         this.personRepository = new PersonRepository(new ArrayList<>(this.dataLoaderRepository.getResponse().getPersons()));
         this.medicalRecordRepository = new MedicalRecordRepository(new ArrayList<>(this.dataLoaderRepository.getResponse().getMedicalrecords()));
+        this.fireStationRepository = new FireStationRepository(new ArrayList<>(this.dataLoaderRepository.getResponse().getFirestations()));
     }
 
     @Override
@@ -102,7 +103,7 @@ public class PersonService implements IPersonService {
             String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
             int age = this.medicalRecordRepository.calculateAgeFromBirthdate(birthdate);
 
-            // 3. verifier si il a -18 ans. ToDo :: code birthdate() method ..
+            // 3. verifier si il a -18 ans.
             if (age < 18) {
 
                 // 4a. verifie si la famille exist, je l'ajoute
@@ -130,10 +131,31 @@ public class PersonService implements IPersonService {
         return childFamily;
     }
 
-    /*
-     * {"schnurr": [], "bini": '[]}
-     *
-     * */
+    @Override
+    public List<PersonInfo> getPersonAllInfo(String firstName, String lastName) {
+        List<Person> persons = this.personRepository.getPersonByFirstNameAndLastName(firstName, lastName);
+        List<PersonInfo> allPersonInfo = new ArrayList<>();
+        for (Person person : persons){
+            MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+            String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
+            int age = this.medicalRecordRepository.calculateAgeFromBirthdate(birthdate);
+
+            if(Objects.equals(person.getLastName(), lastName)){
+                PersonInfo personInfo = new PersonInfo();
+                personInfo.setAddress(person.getAddress());
+                personInfo.setFirstName(person.getFirstName());
+                personInfo.setAllergies(medicalRecord.getAllergies());
+                personInfo.setMedications(medicalRecord.getMedications());
+                personInfo.setLastName(person.getLastName());
+                personInfo.setEmail(person.getEmail());
+                personInfo.setAge(age);
+                allPersonInfo.add(personInfo);
+
+            }
+        }
+
+        return allPersonInfo;
+    }
 
 
 

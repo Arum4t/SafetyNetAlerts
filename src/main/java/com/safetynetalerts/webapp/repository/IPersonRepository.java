@@ -19,4 +19,5 @@ public interface IPersonRepository {
 
     List<String> getEmailByCity (String city);
 
+    List<Person> getPersonByFirstNameAndLastName (String firstName, String lastName);
 }

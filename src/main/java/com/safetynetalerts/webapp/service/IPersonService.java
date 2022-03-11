@@ -3,6 +3,7 @@ package com.safetynetalerts.webapp.service;
 import com.safetynetalerts.webapp.model.Child;
 import com.safetynetalerts.webapp.model.MedicalRecord;
 import com.safetynetalerts.webapp.model.Person;
+import com.safetynetalerts.webapp.model.PersonInfo;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,6 +26,8 @@ public interface IPersonService {
     List<String> getEmailByCity (String city);
 
     Map<String, List<Child>> listChildAlert (String address);
+
+    List<PersonInfo> getPersonAllInfo (String firstName, String lastName);
 
 
 }

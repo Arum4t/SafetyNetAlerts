@@ -22,10 +22,10 @@ public class MedicalRecordController {
         return medicalRecordService.getAllMedicalRecords();
     }
 
-    // http://localhost:8080/medicalRecord?birthdate=<>
+    // http://localhost:8080/medicalRecord?birthdate=03/06/1984
     @GetMapping("/medicalRecord")
-    public List<MedicalRecord> getMedicalRecords(@RequestParam String birthdate){
-        return this.medicalRecordService.getAllMedicalRecords();
+    public MedicalRecord getMedicalRecords(@RequestParam String birthdate){
+        return this.medicalRecordService.getMedicalRecords(birthdate);
     }
     @PostMapping("/medicalRecords")
     public MedicalRecord saveMedicalRecords(@RequestBody MedicalRecord medicalRecord){

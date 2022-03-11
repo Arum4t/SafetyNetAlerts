@@ -2,6 +2,7 @@ package com.safetynetalerts.webapp.repository;
 
 import com.safetynetalerts.webapp.controller.LoggingController;
 import com.safetynetalerts.webapp.model.Person;
+import com.safetynetalerts.webapp.model.PersonInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -106,6 +107,16 @@ public class PersonRepository implements IPersonRepository{
         } return emailCityList;
         }
 
+    public List<Person> getPersonByFirstNameAndLastName (String firstName, String lastName){
+        List<Person> personByFirstNameAndLastName = new ArrayList<>();
+        for (Person person : this.persons){
+            if(person.getFirstName() != null &&  person.getLastName() != null){
+                personByFirstNameAndLastName.add(person);
+            }
+        }
+        return personByFirstNameAndLastName;
     }
+
+}
 
 
