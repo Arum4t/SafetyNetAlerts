@@ -18,4 +18,6 @@ public interface IFireStationRepository {
 
     FireStation getFireStationByAddress(String address);
 
+
+
 }

@@ -1,8 +1,6 @@
 package com.safetynetalerts.webapp.service;
 
-import com.safetynetalerts.webapp.model.FireStation;
-import com.safetynetalerts.webapp.model.Person;
-import com.safetynetalerts.webapp.model.PersonStation;
+import com.safetynetalerts.webapp.model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +23,8 @@ public interface IFireStationService {
 
     List<String> getPhoneAlert (int fireStationNumber);
 
-    List<FireZone> getFireZone (String address);
+    Map<String, List<FireZone>> getFireZone (String address);
+
+    //Map<String, List<FloodZone>> getFloodZone(List<Integer> stations);
 
 }

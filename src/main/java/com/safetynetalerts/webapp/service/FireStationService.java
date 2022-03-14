@@ -1,10 +1,7 @@
 package com.safetynetalerts.webapp.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.safetynetalerts.webapp.model.FireStation;
-import com.safetynetalerts.webapp.model.MedicalRecord;
-import com.safetynetalerts.webapp.model.Person;
-import com.safetynetalerts.webapp.model.PersonStation;
+import com.safetynetalerts.webapp.model.*;
 import com.safetynetalerts.webapp.repository.DataLoaderRepository;
 import com.safetynetalerts.webapp.repository.FireStationRepository;
 import com.safetynetalerts.webapp.repository.MedicalRecordRepository;
@@ -144,4 +141,97 @@ public class FireStationService implements IFireStationService {
 
         return phoneList;
     }
+
+    @Override
+    public Map<String, List<FireZone>> getFireZone(String address) {
+        List<Person> persons = this.personRepository.getPersonsByAddress(address);
+        FireStation fireStations = this.fireStationRepository.getFireStationByAddress(address);
+
+        Map<String, List<FireZone>> fireZones = new HashMap<>();
+
+        for(Person person : persons){
+
+            String station = "Station :" + fireStations.getStation();
+
+            int stationPerson = getStationNumberPerson(person.getAddress());
+            MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+            String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
+            int age = this.medicalRecordRepository.calculateAgeFromBirthdate(birthdate);
+
+            if(stationPerson == fireStations.getStation()){
+                List<FireZone> stationList = fireZones.get(station);
+                if(stationList  != null){
+
+                    FireZone fireZone = new FireZone();
+                    fireZone.setAge(age);
+                    fireZone.setPhone(person.getPhone());
+                    fireZone.setLastName(person.getLastName());
+                    fireZone.setAllergies(medicalRecord.getAllergies());
+                    fireZone.setMedications(medicalRecord.getMedications());
+                    stationList.add(fireZone);
+                    continue;
+                }
+                stationList = new ArrayList<>();
+                FireZone fireZone = new FireZone();
+                fireZone.setAge(age);
+                fireZone.setPhone(person.getPhone());
+                fireZone.setLastName(person.getLastName());
+                fireZone.setAllergies(medicalRecord.getAllergies());
+                fireZone.setMedications(medicalRecord.getMedications());
+                stationList.add(fireZone);
+                fireZones.putIfAbsent(station, stationList);
+
+            }
+        }
+
+        return fireZones;
+    }
+
+
+    public Map<String, List<FloodZone>> getFloodZone(List<Integer> stations) {
+        List<Person> persons = this.personRepository.getPersons();
+
+        Map<String, List<FloodZone>> floodZones = new HashMap<>();
+
+
+            for(Person person : persons) {
+
+                String address = "Address : " + person.getAddress();
+
+                int stationPerson = getStationNumberPerson(person.getAddress());
+                MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+                String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
+                int age = this.medicalRecordRepository.calculateAgeFromBirthdate(birthdate);
+
+                if (stations.contains(stationPerson)) {
+                    List<FloodZone> addressList = floodZones.get(address);
+                    if(addressList != null){
+                        FloodZone floodZone = new FloodZone();
+                        floodZone.setPhone(person.getPhone());
+                        floodZone.setAge(age);
+                        floodZone.setLastName(person.getLastName());
+                        floodZone.setPhone(person.getPhone());
+                        floodZone.setAllergies(medicalRecord.getAllergies());
+                        floodZone.setMedications(medicalRecord.getMedications());
+                        addressList.add(floodZone);
+                        continue;
+                    }
+                    addressList = new ArrayList<>();
+                    FloodZone floodZone = new FloodZone();
+                    floodZone.setPhone(person.getPhone());
+                    floodZone.setAge(age);
+                    floodZone.setLastName(person.getLastName());
+                    floodZone.setPhone(person.getPhone());
+                    floodZone.setAllergies(medicalRecord.getAllergies());
+                    floodZone.setMedications(medicalRecord.getMedications());
+                    addressList.add(floodZone);
+                    floodZones.putIfAbsent(address, addressList);
+                }
+
+            }
+
+        return floodZones;
+    }
+
 }
+

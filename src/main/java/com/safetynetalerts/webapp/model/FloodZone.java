@@ -5,10 +5,10 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class FireZone {
+public class FloodZone {
     private String lastName;
-    private int age;
     private String phone;
+    private int age;
     private List<String> allergies;
     private List<String> medications;
 }
