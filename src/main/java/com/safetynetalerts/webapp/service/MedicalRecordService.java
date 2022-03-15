@@ -43,18 +43,21 @@ public class MedicalRecordService implements IMedicalRecordService {
     }
 
     @Override
-    public Boolean deleteMedicalRecords(String birthdate) {
-        MedicalRecord medicalRecord = getMedicalRecords(birthdate);
-        if(medicalRecord == null){
-            return false;
-        }
-        this.medicalRecordRepository.deleteMedicalRecords(medicalRecord);
-        return true;
+    public Boolean deleteMedicalRecords(String firstName, String lastName){
+        MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(firstName, lastName);
+       if (medicalRecord != null){
+           this.medicalRecordRepository.deleteMedicalRecords(medicalRecord);
+           return true;
+       }return false;
     }
 
-    // TODO: finish service update MedicalRecord
+
     @Override
     public MedicalRecord updateMedicalRecords(MedicalRecord medicalRecord) {
+        if(this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(medicalRecord.getFirstName(), medicalRecord.getLastName()) != null){
+            log.info("Request successful");
+            return this.medicalRecordRepository.updateMedicalRecords(medicalRecord);
+        } log.error("MedicalRecords not found");
         return null;
     }
 

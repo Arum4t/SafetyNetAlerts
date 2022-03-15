@@ -23,17 +23,7 @@ public class PersonController {
         public List<Person> getAllPersons(){
         return this.personService.getAllPersons();
 }
-    // http://localhost:8080/person?email=drk@email.com
-    @GetMapping("/person")
-    public Person getPerson(@RequestParam String email){
-        return this.personService.getPerson(email);
-    }
 
-    // http://localhost:8080/persons/address?address=947 E. Rose Dr
-    @GetMapping("/persons/address")
-        public List<Person> getPersonsByAddress(@RequestParam String address){
-        return this.personService.getPersonsByAddress(address);
-    }
     // http://localhost:8080/communityEmail?city=Culver
     @GetMapping("/communityEmail")
         public List<String> getEmailByCity (@RequestParam String city){
@@ -43,14 +33,15 @@ public class PersonController {
         public Person createPerson(@RequestBody Person person){
         return personService.savePerson(person);
 }
+
     @PutMapping("/persons")
         public Person updatePerson(@RequestBody Person person) {
         return personService.updatePerson(person);
     }
 
-    @DeleteMapping("/persons/{email}")
-    public String deletePerson(@PathVariable("email") String email) {
-        Boolean ok = personService.deletePerson(email);
+    @DeleteMapping("/persons/{firstName}/{lastName}")
+    public String deletePerson (@PathVariable("firstName") String firstName,@PathVariable("lastName") String lastName) {
+        Boolean ok = personService.deletePerson(firstName, lastName);
         if(ok){
             return "ok";
         }

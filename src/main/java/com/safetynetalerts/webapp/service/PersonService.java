@@ -57,23 +57,25 @@ public class PersonService implements IPersonService {
 
     @Override
     public Person updatePerson(Person person) {
-        // tricky, toujours en partant de l'email. Mettre à jours les infos
-        if (getPerson(person.getEmail()) != null) {
+        if(getPerson(person.getEmail()) != null){
+            log.info("Request successful");
             return this.personRepository.updatePerson(person);
+        }log.error("Person not found");
 
-        }
-        log.error("Person not found");
         return null;
     }
 
     @Override
-    public Boolean deletePerson(String email) {
-        Person person = getPerson(email);
-        if (person == null) {
-           return false;
+    public Boolean deletePerson (String firstName, String lastName) {
+        List<Person> personToDelete = this.personRepository.getPersonByFirstNameAndLastName(firstName, lastName);
+        for(Person person : personToDelete){
+            if(Objects.equals(person.getLastName(), lastName)&&Objects.equals(person.getFirstName(), firstName)){
+                personToDelete.add(person);
+                this.personRepository.deletePerson(person);
+                return true;
+            }return false;
         }
-        this.personRepository.deletePerson(person);
-        return true;
+        return null;
     }
 
     @Override

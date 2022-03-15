@@ -22,11 +22,6 @@ public class MedicalRecordController {
         return medicalRecordService.getAllMedicalRecords();
     }
 
-    // http://localhost:8080/medicalRecord?birthdate=03/06/1984
-    @GetMapping("/medicalRecord")
-    public MedicalRecord getMedicalRecords(@RequestParam String birthdate){
-        return this.medicalRecordService.getMedicalRecords(birthdate);
-    }
     @PostMapping("/medicalRecords")
     public MedicalRecord saveMedicalRecords(@RequestBody MedicalRecord medicalRecord){
         return medicalRecordService.saveMedicalRecords(medicalRecord);
@@ -37,9 +32,9 @@ public class MedicalRecordController {
         return medicalRecordService.updateMedicalRecords(medicalRecord);
     }
 
-    @DeleteMapping("/medicalRecords/{birthdate}")
-    public String deleteMedicalRecords(@PathVariable("birthdate") String birthdate) {
-        Boolean ok = medicalRecordService.deleteMedicalRecords(birthdate);
+    @DeleteMapping("/medicalRecords/{firstName}/{lastName}")
+    public String deleteMedicalRecords(@PathVariable("firstName") String firstName,@PathVariable("lastName")  String lastName) {
+        Boolean ok = medicalRecordService.deleteMedicalRecords(firstName, lastName);
         if(ok){
             return "ok";
         }

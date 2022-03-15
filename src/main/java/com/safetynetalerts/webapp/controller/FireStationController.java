@@ -16,15 +16,9 @@ public class FireStationController {
     private FireStationService fireStationService;
 
     //http://localhost:8080/fireStations
-    @GetMapping("/fireStation")
+    @GetMapping("/fireStations")
     public List<FireStation> getAllFireStations() {
         return fireStationService.getAllFireStations();
-    }
-
-    // http://localhost:8080/fireStation?station=<>
-    @GetMapping(value = "/fireStations", params = "station")
-    public FireStation getStation(@RequestParam Integer station) {
-        return this.fireStationService.getFireStation(station);
     }
 
     @PostMapping("/fireStations")

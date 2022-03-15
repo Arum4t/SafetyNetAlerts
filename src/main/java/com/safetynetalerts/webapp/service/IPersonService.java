@@ -19,7 +19,7 @@ public interface IPersonService {
 
     Person updatePerson(Person person);
 
-    Boolean deletePerson(String email);
+    Boolean deletePerson(String firstName, String lastName);
 
     List<Person> getPersonsByAddress(String address);
 

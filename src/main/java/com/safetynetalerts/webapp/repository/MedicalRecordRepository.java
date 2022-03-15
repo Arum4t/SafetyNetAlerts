@@ -40,17 +40,16 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
         return null;
     }
 
-
     @Override
     public MedicalRecord deleteMedicalRecords(MedicalRecord medicalRecord) {
         this.medicalRecords.remove(medicalRecord);
         return medicalRecord;
     }
 
-    // TODO: finish update medicalRecords
     @Override
     public MedicalRecord updateMedicalRecords(MedicalRecord medicalRecord) {
-        return null;
+        this.medicalRecords.set(getAllMedicalRecords().indexOf(getMedicalRecordsByFirstNameAndLastName(medicalRecord.getFirstName(), medicalRecord.getLastName())), medicalRecord);
+        return medicalRecord;
     }
 
     @Override

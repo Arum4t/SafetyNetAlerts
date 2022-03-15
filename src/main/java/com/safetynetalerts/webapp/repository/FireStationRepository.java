@@ -52,10 +52,12 @@ public class FireStationRepository implements IFireStationRepository {
         return fireStation;
     }
 
-    //TODO: Finish UpdateFireStation
+
     @Override
     public FireStation updateFireStation(FireStation fireStation) {
-        return null;
+
+        this.fireStations.set(getAllFireStations().indexOf(getFireStationByAddress(fireStation.getAddress())), fireStation);
+        return fireStation;
     }
 
     @Override

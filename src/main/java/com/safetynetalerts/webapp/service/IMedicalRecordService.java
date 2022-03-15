@@ -10,7 +10,7 @@ public interface IMedicalRecordService {
 
     MedicalRecord getMedicalRecords(String birthdate);
 
-    Boolean deleteMedicalRecords(String birthdate);
+    Boolean deleteMedicalRecords(String firstName, String lastName);
 
     MedicalRecord updateMedicalRecords(MedicalRecord medicalRecord);
 
