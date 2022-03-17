@@ -32,7 +32,7 @@ public class FireStationService implements IFireStationService {
         this.medicalRecordRepository = new MedicalRecordRepository(new ArrayList<>(this.dataLoaderRepository.getResponse().getMedicalrecords()));
     }
 
-
+    //TODO getALL suffit
     @Override
     public List<FireStation> getAllFireStations() {
         return this.fireStationRepository.getAllFireStations();
@@ -69,7 +69,7 @@ public class FireStationService implements IFireStationService {
         } log.error("FireStation not found");
         return null;
     }
-
+    //déplacer dans person
     @Override
     public Map<List<String>, List<PersonStation>> getPersonInfoByStation(int station) {
         List<Person> persons = this.personRepository.getPersons();

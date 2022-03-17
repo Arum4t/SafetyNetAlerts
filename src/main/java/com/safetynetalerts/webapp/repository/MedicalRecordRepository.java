@@ -68,7 +68,7 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
         return null;
     }
 
-
+        //TODO déplacer dans MedicalRecordService
     public int calculateAgeFromBirthdate(String birthdate){
         LocalDate currentDate = LocalDate.now();
         if( birthdate != null) {
