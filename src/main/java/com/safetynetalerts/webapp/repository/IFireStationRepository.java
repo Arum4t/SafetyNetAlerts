@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IFireStationRepository {
 
-    List<FireStation> getAllFireStations();
+    List<FireStation> getAll();
 
     FireStation getFireStation(Integer station);
 

@@ -2,11 +2,12 @@ package com.safetynetalerts.webapp.service;
 import com.safetynetalerts.webapp.model.MedicalRecord;
 import com.safetynetalerts.webapp.model.Person;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IMedicalRecordService {
 
-    List<MedicalRecord> getAllMedicalRecords();
+    List<MedicalRecord> getAll();
 
     MedicalRecord getMedicalRecords(String birthdate);
 
@@ -20,5 +21,8 @@ public interface IMedicalRecordService {
 
     List<String> getAllergiesFromPerson(Person person);
 
+    default int calculateAgeFromBirthdate(LocalDate birthdate, LocalDate currentDate) {
+        return 0;
+    }
 
 }

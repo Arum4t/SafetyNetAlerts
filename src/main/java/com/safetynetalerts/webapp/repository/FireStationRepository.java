@@ -25,7 +25,7 @@ public class FireStationRepository implements IFireStationRepository {
     }
 
     @Override
-    public List<FireStation> getAllFireStations(){
+    public List<FireStation> getAll(){
         return this.fireStations;
     }
 
@@ -56,7 +56,7 @@ public class FireStationRepository implements IFireStationRepository {
     @Override
     public FireStation updateFireStation(FireStation fireStation) {
 
-        this.fireStations.set(getAllFireStations().indexOf(getFireStationByAddress(fireStation.getAddress())), fireStation);
+        this.fireStations.set(getAll().indexOf(getFireStationByAddress(fireStation.getAddress())), fireStation);
         return fireStation;
     }
 
@@ -69,9 +69,5 @@ public class FireStationRepository implements IFireStationRepository {
         }
         return null;
     }
-
-
-
-
 
 }

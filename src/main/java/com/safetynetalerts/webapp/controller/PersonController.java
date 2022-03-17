@@ -3,10 +3,12 @@ package com.safetynetalerts.webapp.controller;
 import com.safetynetalerts.webapp.model.Child;
 import com.safetynetalerts.webapp.model.Person;
 import com.safetynetalerts.webapp.model.PersonInfo;
+import com.safetynetalerts.webapp.model.PersonFireStationResponse;
 import com.safetynetalerts.webapp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ public class PersonController {
     // http://localhost:8080/persons
     @GetMapping("/persons")
         public List<Person> getAllPersons(){
-        return this.personService.getAllPersons();
+        return this.personService.getAll();
 }
 
     // http://localhost:8080/communityEmail?city=Culver
@@ -49,12 +51,17 @@ public class PersonController {
     }
     //http://localhost:8080/childAlert?address=1509 Culver St
     @GetMapping("/childAlert")
-    public Map<String, List<Child>> listChildAlert (@RequestParam String address){
+    public Map<String, List<Child>> listChildAlert (@RequestParam String address) throws IOException {
         return this.personService.listChildAlert(address);
     }
     //http://localhost:8080/personInfo?firstName=John&lastName=Boyd
     @GetMapping("/personInfo")
-    public List<PersonInfo> getPersonAllInfo (@RequestParam String firstName, String lastName){
+    public List<PersonInfo> getPersonAllInfo (@RequestParam String firstName, String lastName) throws IOException {
         return this.personService.getPersonAllInfo(firstName, lastName);
+    }
+    //http://localhost:8080/fireStations?stationNumber=2
+    @GetMapping(value = "/fireStations", params = "stationNumber")
+    public List<PersonFireStationResponse> getStationNumberPerson (@RequestParam int stationNumber) throws IOException {
+        return personService.getPersonInfoByStation(stationNumber);
     }
 }

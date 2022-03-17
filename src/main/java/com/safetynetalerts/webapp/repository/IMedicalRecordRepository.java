@@ -21,9 +21,7 @@ public interface IMedicalRecordRepository {
 
     MedicalRecord getMedicalRecordsByFirstNameAndLastName(String firstName, String lastName);
 
-    default int calculateAgeFromBirthdate(LocalDate birthdate, LocalDate currentDate) {
-        return 0;
-    }
+
 
 
 }

@@ -19,7 +19,7 @@ public class MedicalRecordController {
     // http://localhost:8080/medicalRecord
     @GetMapping("/medicalRecords")
     public List<MedicalRecord> getAllMedicalRecords(){
-        return medicalRecordService.getAllMedicalRecords();
+        return medicalRecordService.getAll();
     }
 
     @PostMapping("/medicalRecords")

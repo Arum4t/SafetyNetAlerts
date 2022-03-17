@@ -1,9 +1,6 @@
 package com.safetynetalerts.webapp.service;
 
-import com.safetynetalerts.webapp.model.Child;
-import com.safetynetalerts.webapp.model.MedicalRecord;
-import com.safetynetalerts.webapp.model.Person;
-import com.safetynetalerts.webapp.model.PersonInfo;
+import com.safetynetalerts.webapp.model.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +8,7 @@ import java.util.Map;
 
 public interface IPersonService {
 
-    List<Person> getAllPersons();
+    List<Person> getAll();
 
     Person getPerson(String email);
 
@@ -25,9 +22,13 @@ public interface IPersonService {
 
     List<String> getEmailByCity (String city);
 
-    Map<String, List<Child>> listChildAlert (String address);
+    Map<String, List<Child>> listChildAlert (String address) throws IOException;
 
-    List<PersonInfo> getPersonAllInfo (String firstName, String lastName);
+    List<PersonInfo> getPersonAllInfo (String firstName, String lastName) throws IOException;
+
+    List<PersonFireStationResponse> getPersonInfoByStation(int station) throws IOException;
+
+    List<Person> getPersonByFireStationAddress (int station) throws IOException;
 
 
 }

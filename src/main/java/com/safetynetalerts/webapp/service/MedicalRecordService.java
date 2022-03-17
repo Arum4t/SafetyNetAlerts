@@ -12,8 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class MedicalRecordService implements IMedicalRecordService {
@@ -32,7 +36,7 @@ public class MedicalRecordService implements IMedicalRecordService {
     }
 
     @Override
-    public List<MedicalRecord> getAllMedicalRecords(){
+    public List<MedicalRecord> getAll(){
         return this.medicalRecordRepository.getAllMedicalRecords();
 
     }
@@ -87,6 +91,16 @@ public class MedicalRecordService implements IMedicalRecordService {
             }
         }
         return null;
+    }
+    public int calculateAgeFromBirthdate(String birthdate){
+        LocalDate currentDate = LocalDate.now();
+        if( birthdate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            formatter = formatter.withLocale(Locale.FRANCE);
+            LocalDate birthDate = LocalDate.parse(birthdate, formatter);
+            return Period.between(birthDate, currentDate).getYears();
+        }
+        return 0;
     }
 
 }

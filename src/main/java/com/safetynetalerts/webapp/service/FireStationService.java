@@ -32,10 +32,10 @@ public class FireStationService implements IFireStationService {
         this.medicalRecordRepository = new MedicalRecordRepository(new ArrayList<>(this.dataLoaderRepository.getResponse().getMedicalrecords()));
     }
 
-    //TODO getALL suffit
+
     @Override
-    public List<FireStation> getAllFireStations() {
-        return this.fireStationRepository.getAllFireStations();
+    public List<FireStation> getAll() {
+        return this.fireStationRepository.getAll();
     }
 
     @Override
@@ -68,50 +68,6 @@ public class FireStationService implements IFireStationService {
             return this.fireStationRepository.updateFireStation(fireStation);
         } log.error("FireStation not found");
         return null;
-    }
-    //déplacer dans person
-    @Override
-    public Map<List<String>, List<PersonStation>> getPersonInfoByStation(int station) {
-        List<Person> persons = this.personRepository.getPersons();
-        FireStation fireStations = this.fireStationRepository.getFireStation(station);
-
-        Map<List<String>, List<PersonStation>> personInfoByStationPlusCounter = new HashMap<>();
-
-        List<PersonStation> personStations = new ArrayList<>();
-        List<String> personCounter = new ArrayList<>();
-
-        int adult = 0;
-        int child = 0;
-
-        for(Person person : persons){
-
-                int stationPerson = getStationNumberPerson(person.getAddress());
-                MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
-                String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
-                int age = this.medicalRecordRepository.calculateAgeFromBirthdate(birthdate);
-
-
-            if(stationPerson == fireStations.getStation()){
-
-            PersonStation personStation = new PersonStation();
-                personStation.setFirstName(person.getFirstName());
-                personStation.setAddress(person.getAddress());
-                personStation.setLastName(person.getLastName());
-                personStation.setPhone(person.getPhone());
-                personStations.add(personStation);
-                if(age > 18){
-                    adult++;
-                }
-                if(age < 18){
-                    child++;
-                }
-            }
-        }
-        personCounter.add("Child :"+child);
-        personCounter.add("Adult :"+adult);
-
-        personInfoByStationPlusCounter.put(personCounter,personStations);
-        return personInfoByStationPlusCounter;
     }
 
     @Override
@@ -147,7 +103,7 @@ public class FireStationService implements IFireStationService {
     }
 
     @Override
-    public Map<String, List<FireZone>> getFireZone(String address) {
+    public Map<String, List<FireZone>> getFireZone(String address) throws IOException {
         List<Person> persons = this.personRepository.getPersonsByAddress(address);
         FireStation fireStations = this.fireStationRepository.getFireStationByAddress(address);
 
@@ -160,7 +116,8 @@ public class FireStationService implements IFireStationService {
             int stationPerson = getStationNumberPerson(person.getAddress());
             MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
             String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
-            int age = this.medicalRecordRepository.calculateAgeFromBirthdate(birthdate);
+            MedicalRecordService calculateAge = new MedicalRecordService();
+            int age = calculateAge.calculateAgeFromBirthdate(birthdate);
 
             if(stationPerson == fireStations.getStation()){
                 List<FireZone> stationList = fireZones.get(station);
@@ -191,8 +148,8 @@ public class FireStationService implements IFireStationService {
         return fireZones;
     }
 
-
-    public Map<String, List<FloodZone>> getFloodZone(List<Integer> stations) {
+    @Override
+    public Map<String, List<FloodZone>> getFloodZone(List<Integer> stations) throws IOException {
         List<Person> persons = this.personRepository.getPersons();
 
         Map<String, List<FloodZone>> floodZones = new HashMap<>();
@@ -205,7 +162,8 @@ public class FireStationService implements IFireStationService {
                 int stationPerson = getStationNumberPerson(person.getAddress());
                 MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
                 String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
-                int age = this.medicalRecordRepository.calculateAgeFromBirthdate(birthdate);
+                MedicalRecordService calculateAge = new MedicalRecordService();
+                int age = calculateAge.calculateAgeFromBirthdate(birthdate);
 
                 if (stations.contains(stationPerson)) {
                     List<FloodZone> addressList = floodZones.get(address);

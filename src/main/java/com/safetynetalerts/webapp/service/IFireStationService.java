@@ -2,12 +2,13 @@ package com.safetynetalerts.webapp.service;
 
 import com.safetynetalerts.webapp.model.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 public interface IFireStationService {
 
-    List<FireStation> getAllFireStations();
+    List<FireStation> getAll();
 
     FireStation getFireStation(Integer station);
 
@@ -17,14 +18,12 @@ public interface IFireStationService {
 
     FireStation updateFireStation(FireStation fireStation);
 
-    Map<List<String>, List<PersonStation>> getPersonInfoByStation(int station);
-
     int getStationNumberPerson(String address);
 
     List<String> getPhoneAlert (int fireStationNumber);
 
-    Map<String, List<FireZone>> getFireZone (String address);
+    Map<String, List<FireZone>> getFireZone (String address) throws IOException;
 
-    //Map<String, List<FloodZone>> getFloodZone(List<Integer> stations);
+    Map<String, List<FloodZone>> getFloodZone(List<Integer> stations) throws IOException;
 
 }
