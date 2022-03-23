@@ -39,20 +39,5 @@ public class FireStationController {
         }
         return "not ok";
     }
-    //http://localhost:8080/phoneAlert?fireStation=2
-    @GetMapping(value = "/phoneAlert", params = "fireStation")
-    public List<String> getPhoneAlert (@RequestParam int fireStation){
-        return fireStationService.getPhoneAlert(fireStation);
-    }
-    //http://localhost:8080/fire?address=1509 Culver St
-    @GetMapping("fire")
-    public Map<String, List<FireZone>> getFireZone(@RequestParam String address) throws IOException {
-        return fireStationService.getFireZone(address);
-    }
 
-    //http://localhost:8080/flood/stations?stations=1,2,3
-    @GetMapping(value = "flood/stations", params = "stations")
-    public Map<String, List<FloodZone>> getFloodZone(@RequestParam List<Integer> stations) throws IOException {
-        return fireStationService.getFloodZone(stations);
-    }
 }

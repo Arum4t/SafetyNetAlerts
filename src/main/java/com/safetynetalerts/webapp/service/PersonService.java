@@ -1,6 +1,7 @@
 package com.safetynetalerts.webapp.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynetalerts.webapp.model.*;
+import com.safetynetalerts.webapp.model.DTO.*;
 import com.safetynetalerts.webapp.repository.DataLoaderRepository;
 import com.safetynetalerts.webapp.repository.FireStationRepository;
 import com.safetynetalerts.webapp.repository.MedicalRecordRepository;
@@ -34,7 +35,7 @@ public class PersonService implements IPersonService {
 
     @Override
     public List<Person> getAll() {
-        return this.personRepository.getPersons();
+        return this.personRepository.getAll();
     }
 
     @Override
@@ -51,29 +52,31 @@ public class PersonService implements IPersonService {
             );*/
             log.error("404, entity not found");
         }
-            return this.personRepository.savePerson(person);
-        }
+        return this.personRepository.savePerson(person);
+    }
 
 
     @Override
     public Person updatePerson(Person person) {
-        if(getPerson(person.getEmail()) != null){
+        if (getPerson(person.getEmail()) != null) {
             log.info("Request successful");
             return this.personRepository.updatePerson(person);
-        }log.error("Person not found");
+        }
+        log.error("Person not found");
 
         return null;
     }
 
     @Override
-    public Boolean deletePerson (String firstName, String lastName) {
+    public Boolean deletePerson(String firstName, String lastName) {
         List<Person> personToDelete = this.personRepository.getPersonByFirstNameAndLastName(firstName, lastName);
-        for(Person person : personToDelete){
-            if(Objects.equals(person.getLastName(), lastName)&&Objects.equals(person.getFirstName(), firstName)){
+        for (Person person : personToDelete) {
+            if (Objects.equals(person.getLastName(), lastName) && Objects.equals(person.getFirstName(), firstName)) {
                 personToDelete.add(person);
                 this.personRepository.deletePerson(person);
                 return true;
-            }return false;
+            }
+            return false;
         }
         return null;
     }
@@ -84,15 +87,15 @@ public class PersonService implements IPersonService {
     }
 
     @Override
-    public List<String> getEmailByCity (String city) {
+    public List<String> getEmailByCity(String city) {
         return this.personRepository.getEmailByCity(city);
     }
 
     @Override
-    public Map<String, List<Child>> listChildAlert (String address) throws IOException {
+    public Map<String, List<ChildAlert>> listChildAlert(String address) throws IOException {
         List<Person> persons = this.personRepository.getPersonsByAddress(address);
 
-        Map<String, List<Child>> childFamily = new HashMap<>(); // HERE !! Tableau famille enfants
+        Map<String, List<ChildAlert>> childFamily = new HashMap<>(); // HERE !! Tableau famille enfants
 
 
         for (Person person : persons) {
@@ -109,22 +112,22 @@ public class PersonService implements IPersonService {
             if (age < 18) {
 
                 // 4a. verifie si la famille exist, je l'ajoute
-                List<Child> childrenFamily = childFamily.get(familyName);
-                if(childrenFamily != null) {
-                    Child child = new Child();
-                    child.setFirstName(person.getFirstName());
-                    child.setLastName(person.getLastName());
-                    child.setAge(age);
-                    childrenFamily.add(child);
+                List<ChildAlert> childrenFamily = childFamily.get(familyName);
+                if (childrenFamily != null) {
+                    ChildAlert childAlert = new ChildAlert();
+                    childAlert.setFirstName(person.getFirstName());
+                    childAlert.setLastName(person.getLastName());
+                    childAlert.setAge(age);
+                    childrenFamily.add(childAlert);
                     continue;
                 }
                 // 4b. verifie si la famille exist PAS, je la cree
                 childrenFamily = new ArrayList<>();
-                Child child = new Child();
-                child.setFirstName(person.getFirstName());
-                child.setLastName(person.getLastName());
-                child.setAge(age);
-                childrenFamily.add(child);
+                ChildAlert childAlert = new ChildAlert();
+                childAlert.setFirstName(person.getFirstName());
+                childAlert.setLastName(person.getLastName());
+                childAlert.setAge(age);
+                childrenFamily.add(childAlert);
                 childFamily.putIfAbsent(familyName, childrenFamily);
             }
 
@@ -134,57 +137,65 @@ public class PersonService implements IPersonService {
     }
 
     @Override
-    public List<PersonInfo> getPersonAllInfo(String firstName, String lastName) throws IOException {
+    public List<PersonAllInfo> getPersonAllInfo(String firstName, String lastName) throws IOException {
         List<Person> persons = this.personRepository.getPersonByFirstNameAndLastName(firstName, lastName);
-        List<PersonInfo> allPersonInfo = new ArrayList<>();
-        for (Person person : persons){
+        List<PersonAllInfo> allPersonAllInfo = new ArrayList<>();
+        for (Person person : persons) {
             MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
             String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
             MedicalRecordService calculateAge = new MedicalRecordService();
             int age = calculateAge.calculateAgeFromBirthdate(birthdate);
 
-            if(Objects.equals(person.getLastName(), lastName)){
-                PersonInfo personInfo = new PersonInfo();
-                personInfo.setAddress(person.getAddress());
-                personInfo.setFirstName(person.getFirstName());
-                personInfo.setAllergies(medicalRecord.getAllergies());
-                personInfo.setMedications(medicalRecord.getMedications());
-                personInfo.setLastName(person.getLastName());
-                personInfo.setEmail(person.getEmail());
-                personInfo.setAge(age);
-                allPersonInfo.add(personInfo);
+            if (Objects.equals(person.getLastName(), lastName)) {
+                PersonAllInfo personAllInfo = new PersonAllInfo();
+                personAllInfo.setAddress(person.getAddress());
+                personAllInfo.setFirstName(person.getFirstName());
+                personAllInfo.setAllergies(medicalRecord.getAllergies());
+                personAllInfo.setMedications(medicalRecord.getMedications());
+                personAllInfo.setLastName(person.getLastName());
+                personAllInfo.setEmail(person.getEmail());
+                personAllInfo.setAge(age);
+                allPersonAllInfo.add(personAllInfo);
 
             }
         }
 
-        return allPersonInfo;
+        return allPersonAllInfo;
     }
 
     @Override
-    public List<PersonFireStationResponse> getPersonInfoByStation(int station) throws IOException {
-        List<Person> persons = getPersonByFireStationAddress(station);
+    public List<PersonFireStationResponse> getPersonsInfoByStation(int station) throws IOException {
+        List<Person> persons = getPersonByFireStation(station);
         List<PersonFireStationResponse> personFireStationResponses = new ArrayList<>();
+        List<PersonInfoByStation> personList = new ArrayList<>();
 
         int adult = 0;
         int child = 0;
 
-        for(Person person : persons){
+        for (Person person : persons) {
 
             MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
             String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
             MedicalRecordService calculateAge = new MedicalRecordService();
             int age = calculateAge.calculateAgeFromBirthdate(birthdate);
 
-            if(age > 18){
+            if (age > 18) {
                 adult++;
             }
-            if(age < 18){
+            if (age < 18) {
                 child++;
             }
+            PersonInfoByStation personInfoByStation = new PersonInfoByStation();
+            personInfoByStation.setPhone(person.getPhone());
+            personInfoByStation.setFirstName(person.getFirstName());
+            personInfoByStation.setLastName(person.getLastName());
+            personInfoByStation.setAddress(person.getAddress());
+            personList.add(personInfoByStation);
+
         }
 
         PersonFireStationResponse personFireStationResponse = new PersonFireStationResponse();
-        personFireStationResponse.setPersons(persons);
+        personFireStationResponse.setPersons(personList);
         personFireStationResponse.setAdult(adult);
         personFireStationResponse.setChild(child);
         personFireStationResponses.add(personFireStationResponse);
@@ -194,20 +205,111 @@ public class PersonService implements IPersonService {
     }
 
     @Override
-    public List<Person> getPersonByFireStationAddress (int station) throws IOException {
-        List<Person> persons = this.personRepository.getPersons();
+    public List<Person> getPersonByFireStation(int station) throws IOException {
+        List<Person> persons = this.personRepository.getAll();
         FireStation fireStations = this.fireStationRepository.getFireStation(station);
         List<Person> personByFireStationAddress = new ArrayList<>();
         FireStationService fireStationService = new FireStationService();
 
-        for(Person person : persons){
+        for (Person person : persons) {
 
 
-            if(fireStationService.getStationNumberPerson(person.getAddress()) ==  fireStations.getStation()){
+            if (fireStationService.getStationNumberPerson(person.getAddress()) == fireStations.getStation()) {
                 personByFireStationAddress.add(person);
             }
         }
         return personByFireStationAddress;
     }
 
+    @Override
+    public List<String> getPhoneAlert(int fireStationNumber) throws IOException {
+        List<Person> persons = getPersonByFireStation(fireStationNumber);
+        List<String> phoneList = new ArrayList<>();
+
+        for (Person person : persons) {
+            phoneList.add(person.getPhone());
+        }
+
+        return phoneList;
+    }
+
+    @Override
+    public List<PersonFireZoneResponse> getFireZone(String address) throws IOException {
+        List<Person> persons = this.personRepository.getPersonsByAddress(address);
+        FireStation fireStations = this.fireStationRepository.getFireStationByAddress(address);
+        List<PersonFireZoneResponse> fireZones = new ArrayList<>();
+        List<PersonInfoByFireZone> fireZoneList = new ArrayList<>();
+
+        for (Person person : persons) {
+
+
+            MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+            String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
+            MedicalRecordService calculateAge = new MedicalRecordService();
+            int age = calculateAge.calculateAgeFromBirthdate(birthdate);
+
+
+            PersonInfoByFireZone personInfoByFireZone = new PersonInfoByFireZone();
+            personInfoByFireZone.setAge(age);
+            personInfoByFireZone.setPhone(person.getPhone());
+            personInfoByFireZone.setLastName(person.getLastName());
+            personInfoByFireZone.setAllergies(medicalRecord.getAllergies());
+            personInfoByFireZone.setMedications(medicalRecord.getMedications());
+            fireZoneList.add(personInfoByFireZone);
+
+        }
+        PersonFireZoneResponse personFireZoneResponse = new PersonFireZoneResponse();
+        personFireZoneResponse.setPersons(fireZoneList);
+        personFireZoneResponse.setStation(fireStations.getStation());
+        fireZones.add(personFireZoneResponse);
+
+        return fireZones;
+    }
+
+    @Override
+    public Map<String, List<PersonInfoByFloodZone>> getFloodZone(List<Integer> stations) throws IOException {
+
+        List<Person> persons = this.personRepository.getAll();
+        Map<String, List<PersonInfoByFloodZone>> foyer = new HashMap<>();
+        FireStationService fireStationService = new FireStationService();
+
+        for(Person person : persons) {
+
+            String address = "Address : " + person.getAddress();
+
+            MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
+            String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
+            MedicalRecordService calculateAge = new MedicalRecordService();
+            int age = calculateAge.calculateAgeFromBirthdate(birthdate);
+
+            if (stations.contains(fireStationService.getStationNumberPerson(person.getAddress()))) {
+
+                List<PersonInfoByFloodZone> personInfoByFloodZones = foyer.get(address);
+                if(personInfoByFloodZones != null){
+                    PersonInfoByFloodZone personInfoByFloodZone = new PersonInfoByFloodZone();
+                    personInfoByFloodZone.setPhone(person.getPhone());
+                    personInfoByFloodZone.setAge(age);
+                    personInfoByFloodZone.setLastName(person.getLastName());
+                    personInfoByFloodZone.setPhone(person.getPhone());
+                    personInfoByFloodZone.setAllergies(medicalRecord.getAllergies());
+                    personInfoByFloodZone.setMedications(medicalRecord.getMedications());
+                    personInfoByFloodZones.add(personInfoByFloodZone);
+                    continue;
+                }
+                personInfoByFloodZones = new ArrayList<>();
+                PersonInfoByFloodZone personInfoByFloodZone = new PersonInfoByFloodZone();
+                personInfoByFloodZone.setPhone(person.getPhone());
+                personInfoByFloodZone.setAge(age);
+                personInfoByFloodZone.setLastName(person.getLastName());
+                personInfoByFloodZone.setPhone(person.getPhone());
+                personInfoByFloodZone.setAllergies(medicalRecord.getAllergies());
+                personInfoByFloodZone.setMedications(medicalRecord.getMedications());
+                personInfoByFloodZones.add(personInfoByFloodZone);
+                foyer.putIfAbsent(address, personInfoByFloodZones);
+            }
+
+        }
+
+        return foyer;
+       }
 }

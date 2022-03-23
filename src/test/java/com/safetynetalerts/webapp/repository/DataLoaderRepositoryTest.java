@@ -1,23 +1,34 @@
 package com.safetynetalerts.webapp.repository;
 
-
-import com.safetynetalerts.webapp.model.Response;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
 
 
+
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 public class DataLoaderRepositoryTest {
 
-    @Autowired
-    DataLoaderRepository dataLoaderRepository;
+    @Mock
+    private ObjectMapper objectMapper;
 
-    public Response response;
+    private DataLoaderRepository dataLoaderRepository;
+
+    @BeforeEach
+    public void setUp(){
+        dataLoaderRepository = new DataLoaderRepository(objectMapper);
+    }
 
     @Test
-    void getResponse() {
+    public void getResponse() throws IOException {
+
 
     }
 }

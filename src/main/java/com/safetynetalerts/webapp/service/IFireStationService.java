@@ -20,10 +20,6 @@ public interface IFireStationService {
 
     int getStationNumberPerson(String address);
 
-    List<String> getPhoneAlert (int fireStationNumber);
 
-    Map<String, List<FireZone>> getFireZone (String address) throws IOException;
-
-    Map<String, List<FloodZone>> getFloodZone(List<Integer> stations) throws IOException;
 
 }

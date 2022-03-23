@@ -1,14 +1,16 @@
-package com.safetynetalerts.webapp.model;
+package com.safetynetalerts.webapp.model.DTO;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class FloodZone {
+public class PersonAllInfo {
+    private String firstName;
     private String lastName;
-    private String phone;
+    private String address;
     private int age;
+    private String email;
     private List<String> allergies;
     private List<String> medications;
 }

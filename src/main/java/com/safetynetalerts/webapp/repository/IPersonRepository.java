@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IPersonRepository {
 
-    List<Person> getPersons();
+    List<Person> getAll();
 
     Person getPerson(String email);
 

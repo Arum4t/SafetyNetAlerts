@@ -2,11 +2,9 @@ package com.safetynetalerts.webapp.repository;
 
 import com.safetynetalerts.webapp.controller.LoggingController;
 import com.safetynetalerts.webapp.model.Person;
-import com.safetynetalerts.webapp.model.PersonInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -25,7 +23,7 @@ public class PersonRepository implements IPersonRepository{
     }
 
     @Override
-    public List<Person> getPersons(){
+    public List<Person> getAll(){
         return this.persons;
     }
 
@@ -48,7 +46,7 @@ public class PersonRepository implements IPersonRepository{
     @Override
     public Person updatePerson(Person person) {
 
-        this.persons.set(getPersons().indexOf(getPerson(person.getEmail())), person);
+        this.persons.set(getAll().indexOf(getPerson(person.getEmail())), person);
         return person;
     }
 
@@ -76,7 +74,7 @@ public class PersonRepository implements IPersonRepository{
     public List<String> getEmailByCity (String city) {
         List<String> emailCityList = new ArrayList<>();
 
-        for (Person person : getPersons()) {
+        for (Person person : getAll()) {
             if(person.getCity().compareTo(city) == 0){
               emailCityList.add(person.getEmail());
             }
