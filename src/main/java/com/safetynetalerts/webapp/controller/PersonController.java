@@ -59,11 +59,6 @@ public class PersonController {
     public List<PersonAllInfo> getPersonAllInfo (@RequestParam String firstName, String lastName) throws IOException {
         return this.personService.getPersonAllInfo(firstName, lastName);
     }
-    //http://localhost:8080/fireStations?stationNumber=2
-    @GetMapping(value = "/fireStations", params = "stationNumber")
-    public List<PersonFireStationResponse> getStationNumberPerson (@RequestParam int stationNumber) throws IOException {
-        return personService.getPersonsInfoByStation(stationNumber);
-    }
     //http://localhost:8080/phoneAlert?fireStation=2
     @GetMapping(value = "/phoneAlert", params = "fireStation")
     public List<String> getPhoneAlert (@RequestParam int fireStation) throws IOException {

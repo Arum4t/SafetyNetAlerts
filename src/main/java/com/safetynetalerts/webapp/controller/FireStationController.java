@@ -2,6 +2,7 @@ package com.safetynetalerts.webapp.controller;
 
 import com.safetynetalerts.webapp.model.*;
 import com.safetynetalerts.webapp.service.FireStationService;
+import com.safetynetalerts.webapp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ public class FireStationController {
 
     @Autowired
     private FireStationService fireStationService;
+    private PersonService personService;
 
     //http://localhost:8080/fireStations
     @GetMapping("/fireStations")
@@ -38,6 +40,11 @@ public class FireStationController {
             return "ok";
         }
         return "not ok";
+    }
+    //http://localhost:8080/fireStations?stationNumber=2
+    @GetMapping(value = "/fireStations", params = "stationNumber")
+    public List<PersonFireStationResponse> getStationNumberPerson (@RequestParam int stationNumber) throws IOException {
+        return personService.getPersonsInfoByStation(stationNumber);
     }
 
 }

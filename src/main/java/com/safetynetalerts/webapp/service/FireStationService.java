@@ -71,7 +71,7 @@ public class FireStationService implements IFireStationService {
     }
 
     @Override
-    public int getStationNumberPerson(String address){
+    public int getStationNumberByPersonAddress(String address){
         List<Person> persons = this.personRepository.getPersonsByAddress(address);
 
         for(Person person : persons){

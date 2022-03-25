@@ -214,7 +214,7 @@ public class PersonService implements IPersonService {
         for (Person person : persons) {
 
 
-            if (fireStationService.getStationNumberPerson(person.getAddress()) == fireStations.getStation()) {
+            if (fireStationService.getStationNumberByPersonAddress(person.getAddress()) == fireStations.getStation()) {
                 personByFireStationAddress.add(person);
             }
         }
@@ -282,7 +282,7 @@ public class PersonService implements IPersonService {
             MedicalRecordService calculateAge = new MedicalRecordService();
             int age = calculateAge.calculateAgeFromBirthdate(birthdate);
 
-            if (stations.contains(fireStationService.getStationNumberPerson(person.getAddress()))) {
+            if (stations.contains(fireStationService.getStationNumberByPersonAddress(person.getAddress()))) {
 
                 List<PersonInfoByFloodZone> personInfoByFloodZones = foyer.get(address);
                 if(personInfoByFloodZones != null){

@@ -18,7 +18,7 @@ public interface IFireStationService {
 
     FireStation updateFireStation(FireStation fireStation);
 
-    int getStationNumberPerson(String address);
+    int getStationNumberByPersonAddress(String address);
 
 
 
