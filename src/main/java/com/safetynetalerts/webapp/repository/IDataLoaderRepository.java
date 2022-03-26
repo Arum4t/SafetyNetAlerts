@@ -6,6 +6,6 @@ import java.io.IOException;
 
 public interface IDataLoaderRepository {
 
-    public Response getResponse() throws IOException;
+    Response getResponse() throws IOException;
 
 }

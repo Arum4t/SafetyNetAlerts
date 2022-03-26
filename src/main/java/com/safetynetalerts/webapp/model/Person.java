@@ -12,5 +12,4 @@ public class Person {
     private String phone;
     private String city;
     private String zip;
-
 }
