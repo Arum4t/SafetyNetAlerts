@@ -74,4 +74,5 @@ public class PersonController {
     public Map<String, List<PersonInfoByFloodZone>> getFloodZone(@RequestParam List<Integer> stations) throws IOException {
         return personService.getFloodZone(stations);
     }
+
 }

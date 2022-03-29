@@ -71,14 +71,10 @@ public class PersonService implements IPersonService {
     public Boolean deletePerson(String firstName, String lastName) {
         List<Person> personToDelete = this.personRepository.getPersonByFirstNameAndLastName(firstName, lastName);
         for (Person person : personToDelete) {
-            if (Objects.equals(person.getLastName(), lastName) && Objects.equals(person.getFirstName(), firstName)) {
-                personToDelete.add(person);
-                this.personRepository.deletePerson(person);
-                return true;
-            }
-            return false;
+            this.personRepository.deletePerson(person);
+            return true;
         }
-        return null;
+        return false;
     }
 
     @Override
@@ -111,7 +107,7 @@ public class PersonService implements IPersonService {
             // 3. verifier si il a -18 ans.
             if (age < 18) {
 
-                // 4a. verifie si la famille exist, je l'ajoute
+                // 4a. verifier si la famille exist, je l'ajoute
                 List<ChildAlert> childrenFamily = childFamily.get(familyName);
                 if (childrenFamily != null) {
                     ChildAlert childAlert = new ChildAlert();
@@ -121,7 +117,7 @@ public class PersonService implements IPersonService {
                     childrenFamily.add(childAlert);
                     continue;
                 }
-                // 4b. verifie si la famille exist PAS, je la cree
+                // 4b. verifier si la famille n'existe PAS, je la créer
                 childrenFamily = new ArrayList<>();
                 ChildAlert childAlert = new ChildAlert();
                 childAlert.setFirstName(person.getFirstName());
@@ -208,17 +204,17 @@ public class PersonService implements IPersonService {
     public List<Person> getPersonByFireStation(int station) throws IOException {
         List<Person> persons = this.personRepository.getAll();
         FireStation fireStations = this.fireStationRepository.getFireStation(station);
-        List<Person> personByFireStationAddress = new ArrayList<>();
+        List<Person> personByFireStation = new ArrayList<>();
         FireStationService fireStationService = new FireStationService();
 
         for (Person person : persons) {
 
 
             if (fireStationService.getStationNumberByPersonAddress(person.getAddress()) == fireStations.getStation()) {
-                personByFireStationAddress.add(person);
+                personByFireStation.add(person);
             }
         }
-        return personByFireStationAddress;
+        return personByFireStation;
     }
 
     @Override

@@ -21,8 +21,6 @@ public interface IMedicalRecordService {
 
     List<String> getAllergiesFromPerson(Person person);
 
-    default int calculateAgeFromBirthdate(LocalDate birthdate, LocalDate currentDate) {
-        return 0;
-    }
+    int calculateAgeFromBirthdate(String birthdate);
 
 }

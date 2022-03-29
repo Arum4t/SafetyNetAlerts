@@ -92,6 +92,7 @@ public class MedicalRecordService implements IMedicalRecordService {
         }
         return null;
     }
+    @Override
     public int calculateAgeFromBirthdate(String birthdate){
         LocalDate currentDate = LocalDate.now();
         if( birthdate != null) {

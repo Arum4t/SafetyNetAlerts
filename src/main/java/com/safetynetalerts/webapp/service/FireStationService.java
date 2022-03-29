@@ -63,7 +63,7 @@ public class FireStationService implements IFireStationService {
 
     @Override
     public FireStation updateFireStation(FireStation fireStation) {
-        if(this.fireStationRepository.getFireStationByAddress(fireStation.getAddress()) != null){
+        if(getFireStation(fireStation.getStation()) != null){
             log.info("Request successful");
             return this.fireStationRepository.updateFireStation(fireStation);
         } log.error("FireStation not found");

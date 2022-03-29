@@ -1,0 +1,351 @@
+{
+  "fullInfo": [
+    {
+      "firstName": "John",
+      "lastName": "Boyd",
+      "address": "1509 Culver St",
+      "age": 38,
+      "email": "jaboyd1@email.com",
+      "allergies": [
+        "nillacilan"
+      ],
+      "medications": [
+        "aznol:350mg",
+        "hydrapermazol:100mg"
+      ]
+    },
+    {
+      "firstName": "Jacob",
+      "lastName": "Boyd",
+      "address": "1509 Culver St",
+      "age": 33,
+      "email": "drk1@email.com",
+      "allergies": [],
+      "medications": [
+        "pharmacol:5000mg",
+        "terazine:10mg",
+        "noznazol:250mg"
+      ]
+    },
+    {
+      "firstName": "Tenley",
+      "lastName": "Boyd",
+      "address": "1509 Culver St",
+      "age": 10,
+      "email": "tenz1@email.com",
+      "allergies": [
+        "peanut"
+      ],
+      "medications": []
+    },
+    {
+      "firstName": "Roger",
+      "lastName": "Boyd",
+      "address": "1509 Culver St",
+      "age": 4,
+      "email": "jaboyd2@email.com",
+      "allergies": [],
+      "medications": []
+    },
+    {
+      "firstName": "Felicia",
+      "lastName": "Boyd",
+      "address": "1509 Culver St",
+      "age": 36,
+      "email": "jaboyd3@email.com",
+      "allergies": [
+        "xilliathal"
+      ],
+      "medications": [
+        "tetracyclaz:650mg"
+      ]
+    },
+    {
+      "firstName": "Allison",
+      "lastName": "Boyd",
+      "address": "112 Steppes Pl",
+      "age": 57,
+      "email": "aly@imail.com",
+      "allergies": [
+        "nillacilan"
+      ],
+      "medications": [
+        "aznol:200mg"
+      ]
+    }
+  ],
+  "personInfoByFireStation": [
+    {
+      "persons": [
+        {
+          "firstName": "Jonanathan",
+          "lastName": "Marrack",
+          "address": "29 15th St",
+          "phone": "841-874-6513"
+        },
+        {
+          "firstName": "Sophia",
+          "lastName": "Zemicks",
+          "address": "892 Downing Ct",
+          "phone": "841-874-7878"
+        },
+        {
+          "firstName": "Warren",
+          "lastName": "Zemicks",
+          "address": "892 Downing Ct",
+          "phone": "841-874-7512"
+        },
+        {
+          "firstName": "Zach",
+          "lastName": "Zemicks",
+          "address": "892 Downing Ct",
+          "phone": "841-874-7512"
+        },
+        {
+          "firstName": "Eric",
+          "lastName": "Cadigan",
+          "address": "951 LoneTree Rd",
+          "phone": "841-874-7458"
+        }
+      ],
+      "child": 1,
+      "adult": 4
+    }
+  ],
+  "personsByFireStation": [
+    {
+      "firstName": "Peter",
+      "lastName": "Duncan",
+      "address": "644 Gershwin Cir",
+      "email": "jaboyd4@email.com",
+      "phone": "841-874-6512",
+      "city": "Culver",
+      "zip": "97451"
+    },
+    {
+      "firstName": "Reginold",
+      "lastName": "Walker",
+      "address": "908 73rd St",
+      "email": "reg@email.com",
+      "phone": "841-874-8547",
+      "city": "Culver",
+      "zip": "97451"
+    },
+    {
+      "firstName": "Jamie",
+      "lastName": "Peters",
+      "address": "908 73rd St",
+      "email": "jpeter1@email.com",
+      "phone": "841-874-7462",
+      "city": "Culver",
+      "zip": "97451"
+    },
+    {
+      "firstName": "Brian",
+      "lastName": "Stelzer",
+      "address": "947 E. Rose Dr",
+      "email": "bstel1@email.com",
+      "phone": "841-874-7784",
+      "city": "Culver",
+      "zip": "97451"
+    },
+    {
+      "firstName": "Shawna",
+      "lastName": "Stelzer",
+      "address": "947 E. Rose Dr",
+      "email": "ssanw@email.com",
+      "phone": "841-874-7784",
+      "city": "Culver",
+      "zip": "97451"
+    },
+    {
+      "firstName": "Kendrik",
+      "lastName": "Stelzer",
+      "address": "947 E. Rose Dr",
+      "email": "bstel2@email.com",
+      "phone": "841-874-7784",
+      "city": "Culver",
+      "zip": "97451"
+    }
+  ],
+  "phoneAlert": [
+    "841-874-6513",
+    "841-874-7878",
+    "841-874-7512",
+    "841-874-7512",
+    "841-874-7458"
+  ],
+  "fireZones": [
+    {
+      "station": 3,
+      "persons": [
+        {
+          "lastName": "Boyd",
+          "age": 38,
+          "phone": "841-874-6512",
+          "allergies": [
+            "nillacilan"
+          ],
+          "medications": [
+            "aznol:350mg",
+            "hydrapermazol:100mg"
+          ]
+        },
+        {
+          "lastName": "Boyd",
+          "age": 33,
+          "phone": "841-874-6513",
+          "allergies": [],
+          "medications": [
+            "pharmacol:5000mg",
+            "terazine:10mg",
+            "noznazol:250mg"
+          ]
+        },
+        {
+          "lastName": "Boyd",
+          "age": 10,
+          "phone": "841-874-6512",
+          "allergies": [
+            "peanut"
+          ],
+          "medications": []
+        },
+        {
+          "lastName": "Boyd",
+          "age": 4,
+          "phone": "841-874-6512",
+          "allergies": [],
+          "medications": []
+        },
+        {
+          "lastName": "Boyd",
+          "age": 36,
+          "phone": "841-874-6544",
+          "allergies": [
+            "xilliathal"
+          ],
+          "medications": [
+            "tetracyclaz:650mg"
+          ]
+        }
+      ]
+    }
+  ],
+  "floodZones": {
+    "Address : 644 Gershwin Cir": [
+      {
+        "lastName": "Duncan",
+        "phone": "841-874-6512",
+        "age": 21,
+        "allergies": [
+          "shellfish"
+        ],
+        "medications": []
+      }
+    ],
+    "Address : 947 E. Rose Dr": [
+      {
+        "lastName": "Stelzer",
+        "phone": "841-874-7784",
+        "age": 46,
+        "allergies": [
+          "nillacilan"
+        ],
+        "medications": [
+          "ibupurin:200mg",
+          "hydrapermazol:400mg"
+        ]
+      },
+      {
+        "lastName": "Stelzer",
+        "phone": "841-874-7784",
+        "age": 41,
+        "allergies": [],
+        "medications": []
+      },
+      {
+        "lastName": "Stelzer",
+        "phone": "841-874-7784",
+        "age": 8,
+        "allergies": [],
+        "medications": [
+          "noxidian:100mg",
+          "pharmacol:2500mg"
+        ]
+      }
+    ],
+    "Address : 29 15th St": [
+      {
+        "lastName": "Marrack",
+        "phone": "841-874-6513",
+        "age": 33,
+        "allergies": [],
+        "medications": []
+      }
+    ],
+    "Address : 892 Downing Ct": [
+      {
+        "lastName": "Zemicks",
+        "phone": "841-874-7878",
+        "age": 34,
+        "allergies": [
+          "peanut",
+          "shellfish",
+          "aznol"
+        ],
+        "medications": [
+          "aznol:60mg",
+          "hydrapermazol:900mg",
+          "pharmacol:5000mg",
+          "terazine:500mg"
+        ]
+      },
+      {
+        "lastName": "Zemicks",
+        "phone": "841-874-7512",
+        "age": 37,
+        "allergies": [],
+        "medications": []
+      },
+      {
+        "lastName": "Zemicks",
+        "phone": "841-874-7512",
+        "age": 5,
+        "allergies": [],
+        "medications": []
+      }
+    ],
+    "Address : 908 73rd St": [
+      {
+        "lastName": "Walker",
+        "phone": "841-874-8547",
+        "age": 42,
+        "allergies": [
+          "illisoxian"
+        ],
+        "medications": [
+          "thradox:700mg"
+        ]
+      },
+      {
+        "lastName": "Peters",
+        "phone": "841-874-7462",
+        "age": 40,
+        "allergies": [],
+        "medications": []
+      }
+    ],
+    "Address : 951 LoneTree Rd": [
+      {
+        "lastName": "Cadigan",
+        "phone": "841-874-7458",
+        "age": 76,
+        "allergies": [],
+        "medications": [
+          "tradoxidine:400mg"
+        ]
+      }
+    ]
+  }
+}

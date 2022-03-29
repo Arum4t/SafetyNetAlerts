@@ -40,4 +40,5 @@ public class MedicalRecordController {
         }
         return "not ok";
     }
+
 }

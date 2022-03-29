@@ -56,7 +56,7 @@ public class FireStationRepository implements IFireStationRepository {
     @Override
     public FireStation updateFireStation(FireStation fireStation) {
 
-        this.fireStations.set(getAll().indexOf(getFireStationByAddress(fireStation.getAddress())), fireStation);
+        this.fireStations.set(getAll().indexOf(getFireStation(fireStation.getStation())), fireStation);
         return fireStation;
     }
 

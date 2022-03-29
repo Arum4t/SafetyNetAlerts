@@ -15,6 +15,8 @@ public class FireStationController {
 
     @Autowired
     private FireStationService fireStationService;
+
+    @Autowired
     private PersonService personService;
 
     //http://localhost:8080/fireStations
@@ -32,7 +34,7 @@ public class FireStationController {
     public FireStation updateFireStation (@RequestBody FireStation fireStation) {
         return this.fireStationService.updateFireStation(fireStation);
     }
-
+    //http://localhost:8080/fireStations/<station>
     @DeleteMapping("/fireStations/{station}")
     public String deleteFireStation (@PathVariable("station") Integer station) {
         Boolean ok = fireStationService.deleteFireStation(station);
@@ -46,5 +48,4 @@ public class FireStationController {
     public List<PersonFireStationResponse> getStationNumberPerson (@RequestParam int stationNumber) throws IOException {
         return personService.getPersonsInfoByStation(stationNumber);
     }
-
 }
