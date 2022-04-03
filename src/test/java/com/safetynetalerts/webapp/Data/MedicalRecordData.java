@@ -5,8 +5,11 @@ import com.safetynetalerts.webapp.model.MedicalRecord;
 import com.safetynetalerts.webapp.model.Person;
 import lombok.Data;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.safetynetalerts.webapp.Data.PersonData.getJsonModel;
 
 
 @Data
@@ -60,5 +63,8 @@ public class MedicalRecordData {
         return medicalRecord;
     }
 
+    public static List<MedicalRecord> allMedicalRecord() throws IOException {
+        return getJsonModel().getAllMedicalRecord();
+    }
 
 }

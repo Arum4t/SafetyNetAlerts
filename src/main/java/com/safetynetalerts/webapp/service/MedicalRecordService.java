@@ -22,7 +22,7 @@ import java.util.Locale;
 @Service
 public class MedicalRecordService implements IMedicalRecordService {
 
-    private static final Logger log = LoggerFactory.getLogger(MedicalRecordService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MedicalRecordService.class);
 
     private DataLoaderRepository dataLoaderRepository;
     private MedicalRecordRepository medicalRecordRepository;
@@ -59,16 +59,16 @@ public class MedicalRecordService implements IMedicalRecordService {
     @Override
     public MedicalRecord updateMedicalRecords(MedicalRecord medicalRecord) {
         if(this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(medicalRecord.getFirstName(), medicalRecord.getLastName()) != null){
-            log.info("Request successful");
+            logger.info("Request successful");
             return this.medicalRecordRepository.updateMedicalRecords(medicalRecord);
-        } log.error("MedicalRecords not found");
+        } logger.error("MedicalRecords not found");
         return null;
     }
 
     @Override
     public MedicalRecord saveMedicalRecords(MedicalRecord medicalRecord) {
         if(getMedicalRecords(medicalRecord.getBirthdate()) != null){
-            log.error("404, entity not found");
+            logger.error("MedicaRecord already exist");
         }
         return this.medicalRecordRepository.saveMedicalRecords(medicalRecord);
     }

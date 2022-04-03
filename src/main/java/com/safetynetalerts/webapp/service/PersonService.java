@@ -17,7 +17,7 @@ import java.util.*;
 @Service
 public class PersonService implements IPersonService {
 
-    private static final Logger log = LoggerFactory.getLogger(PersonService.class);
+    private static final Logger logger = LoggerFactory.getLogger(PersonService.class);
 
     private DataLoaderRepository dataLoaderRepository;
     private PersonRepository personRepository;
@@ -46,11 +46,7 @@ public class PersonService implements IPersonService {
     @Override
     public Person savePerson(Person person) {
         if (getPerson(person.getEmail()) != null) {
-           /*
-           throw new ResponseStatusException(
-                  HttpStatus.NOT_FOUND, "entity not found"
-            );*/
-            log.error("404, entity not found");
+            logger.info("Entity already exist");
         }
         return this.personRepository.savePerson(person);
     }
@@ -59,10 +55,10 @@ public class PersonService implements IPersonService {
     @Override
     public Person updatePerson(Person person) {
         if (getPerson(person.getEmail()) != null) {
-            log.info("Request successful");
+            logger.info("Request successful");
             return this.personRepository.updatePerson(person);
         }
-        log.error("Person not found");
+        logger.error("Person not found");
 
         return null;
     }
@@ -90,24 +86,17 @@ public class PersonService implements IPersonService {
     @Override
     public Map<String, List<ChildAlert>> listChildAlert(String address) throws IOException {
         List<Person> persons = this.personRepository.getPersonsByAddress(address);
-
-        Map<String, List<ChildAlert>> childFamily = new HashMap<>(); // HERE !! Tableau famille enfants
-
+        Map<String, List<ChildAlert>> childFamily = new HashMap<>();
 
         for (Person person : persons) {
-            // 1. recuperer le nom de famille
             String familyName = person.getLastName();
-
-            // 2. recuperer le medical record
             MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
             String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
             MedicalRecordService calculateAge = new MedicalRecordService();
             int age = calculateAge.calculateAgeFromBirthdate(birthdate);
 
-            // 3. verifier si il a -18 ans.
             if (age < 18) {
 
-                // 4a. verifier si la famille exist, je l'ajoute
                 List<ChildAlert> childrenFamily = childFamily.get(familyName);
                 if (childrenFamily != null) {
                     ChildAlert childAlert = new ChildAlert();
@@ -117,7 +106,6 @@ public class PersonService implements IPersonService {
                     childrenFamily.add(childAlert);
                     continue;
                 }
-                // 4b. verifier si la famille n'existe PAS, je la créer
                 childrenFamily = new ArrayList<>();
                 ChildAlert childAlert = new ChildAlert();
                 childAlert.setFirstName(person.getFirstName());
@@ -126,9 +114,7 @@ public class PersonService implements IPersonService {
                 childrenFamily.add(childAlert);
                 childFamily.putIfAbsent(familyName, childrenFamily);
             }
-
         }
-
         return childFamily;
     }
 

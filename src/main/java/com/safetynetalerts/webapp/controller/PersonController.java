@@ -1,7 +1,7 @@
 package com.safetynetalerts.webapp.controller;
 
 import com.safetynetalerts.webapp.model.*;
-import com.safetynetalerts.webapp.model.DTO.ChildAlert;
+import com.safetynetalerts.webapp.model.ChildAlert;
 import com.safetynetalerts.webapp.model.DTO.PersonAllInfo;
 import com.safetynetalerts.webapp.model.DTO.PersonInfoByFloodZone;
 import com.safetynetalerts.webapp.service.PersonService;

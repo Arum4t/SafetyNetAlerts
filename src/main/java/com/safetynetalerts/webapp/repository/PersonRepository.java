@@ -1,6 +1,5 @@
 package com.safetynetalerts.webapp.repository;
 
-import com.safetynetalerts.webapp.controller.LoggingController;
 import com.safetynetalerts.webapp.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,7 @@ import java.util.*;
 @Repository
 public class PersonRepository implements IPersonRepository{
 
-    private static final Logger log = LoggerFactory.getLogger(LoggingController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PersonRepository.class);
 
     private ArrayList<Person> persons;
 
@@ -80,7 +79,7 @@ public class PersonRepository implements IPersonRepository{
             }
         }
         if(emailCityList.isEmpty()){
-            log.info("Request get email failed.");
+            logger.info("Request get email failed.");
         } return emailCityList;
         }
 

@@ -1,10 +1,9 @@
 package com.safetynetalerts.webapp.Data;
 
+import com.safetynetalerts.webapp.controller.MedicalRecordControllerTest;
+import com.safetynetalerts.webapp.model.*;
 import com.safetynetalerts.webapp.model.DTO.PersonAllInfo;
 import com.safetynetalerts.webapp.model.DTO.PersonInfoByFloodZone;
-import com.safetynetalerts.webapp.model.Person;
-import com.safetynetalerts.webapp.model.PersonFireStationResponse;
-import com.safetynetalerts.webapp.model.PersonFireZoneResponse;
 import lombok.Data;
 
 import java.util.List;
@@ -23,4 +22,10 @@ public class JsonModel {
     private List <PersonFireZoneResponse> fireZones;
 
     private Map<String, List<PersonInfoByFloodZone>> floodZones;
+
+    private List<Person> allPerson;
+
+    private List<FireStation> allFireStation;
+
+    private List<MedicalRecord> allMedicalRecord;
 }

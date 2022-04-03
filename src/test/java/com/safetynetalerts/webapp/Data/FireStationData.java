@@ -3,6 +3,11 @@ package com.safetynetalerts.webapp.Data;
 import com.safetynetalerts.webapp.model.FireStation;
 import lombok.Data;
 
+import java.io.IOException;
+import java.util.List;
+
+import static com.safetynetalerts.webapp.Data.PersonData.getJsonModel;
+
 
 @Data
 public class FireStationData {
@@ -29,5 +34,7 @@ public class FireStationData {
         fireStation.setAddress("644 Gershwin");
         return fireStation;
     }
-
+    public static List<FireStation> allFireStation() throws IOException {
+        return getJsonModel().getAllFireStation();
+    }
 }

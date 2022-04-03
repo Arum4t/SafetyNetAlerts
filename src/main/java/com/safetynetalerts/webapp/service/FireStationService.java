@@ -17,7 +17,7 @@ import java.util.*;
 @Service
 public class FireStationService implements IFireStationService {
 
-    private static final Logger log = LoggerFactory.getLogger(FireStationService.class);
+    private static final Logger logger = LoggerFactory.getLogger(FireStationService.class);
 
     private DataLoaderRepository dataLoaderRepository;
     private FireStationRepository fireStationRepository;
@@ -46,7 +46,7 @@ public class FireStationService implements IFireStationService {
     @Override
     public FireStation saveFireStation(FireStation fireStation) {
         if(getFireStation(fireStation.getStation()) != null){
-            log.error("404, entity not found");
+            logger.error("FireStation already exist");
         }
         return this.fireStationRepository.saveFireStation(fireStation);
     }
@@ -64,9 +64,9 @@ public class FireStationService implements IFireStationService {
     @Override
     public FireStation updateFireStation(FireStation fireStation) {
         if(getFireStation(fireStation.getStation()) != null){
-            log.info("Request successful");
+            logger.info("Request successful");
             return this.fireStationRepository.updateFireStation(fireStation);
-        } log.error("FireStation not found");
+        } logger.error("FireStation not found");
         return null;
     }
 

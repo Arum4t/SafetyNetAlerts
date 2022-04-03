@@ -14,7 +14,7 @@ import java.util.*;
 @Repository
 public class MedicalRecordRepository implements IMedicalRecordRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(MedicalRecordRepository.class);
+    private static final Logger logger = LoggerFactory.getLogger(MedicalRecordRepository.class);
 
     private ArrayList<MedicalRecord> medicalRecords;
 

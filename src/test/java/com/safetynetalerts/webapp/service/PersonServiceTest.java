@@ -1,6 +1,6 @@
 package com.safetynetalerts.webapp.service;
 
-import com.safetynetalerts.webapp.model.DTO.ChildAlert;
+import com.safetynetalerts.webapp.model.ChildAlert;
 import com.safetynetalerts.webapp.model.DTO.PersonAllInfo;
 import com.safetynetalerts.webapp.model.DTO.PersonInfoByFloodZone;
 import com.safetynetalerts.webapp.model.Person;
@@ -34,12 +34,10 @@ public class PersonServiceTest {
     public void setUp() throws IOException {
         PersonData personData = new PersonData();
         personService = new PersonService();
-
     }
 
     @Test
     public void deletePersonTest(){
-        //True = delete , False = la personne n'éxiste pas.
     String firstName = "Warren";
     String lastName = "Zemicks";
     Boolean current = personService.deletePerson(firstName, lastName);
@@ -47,7 +45,6 @@ public class PersonServiceTest {
     }
     @Test
     public void updatePersonTest() {
-        // City : Culver / Changer en Lille. Changement attendu avec la méthode update
         Person person = PersonData.personCityUpdate();
 
         Person current = personService.updatePerson(person);
@@ -57,7 +54,6 @@ public class PersonServiceTest {
 
     @Test
     public void getPersonTest() {
-        //La personne créer == la personne récupérer par la méthode via son email
         Person getPerson = PersonData.onePerson();
         String email = "soph@email.com";
 
@@ -67,7 +63,6 @@ public class PersonServiceTest {
     }
     @Test
     public void SavePersonTest() {
-        //Personne qui n'existe pas dans le fichier Json. Si elle existe current == null.
         Person createPerson = PersonData.createPerson();
 
         Person current = personService.savePerson(createPerson);

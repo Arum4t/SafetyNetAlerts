@@ -1,6 +1,5 @@
 package com.safetynetalerts.webapp.repository;
 
-import com.safetynetalerts.webapp.controller.LoggingController;
 import com.safetynetalerts.webapp.model.FireStation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,7 @@ import java.util.Objects;
 @Repository
 public class FireStationRepository implements IFireStationRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(LoggingController.class);
+    private static final Logger logger = LoggerFactory.getLogger(FireStationRepository.class);
 
     private ArrayList<FireStation> fireStations;
 

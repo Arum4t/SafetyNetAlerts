@@ -1,6 +1,5 @@
 package com.safetynetalerts.webapp.model;
 
-import com.safetynetalerts.webapp.model.DTO.PersonInfoByStation;
 import lombok.Data;
 
 import java.util.List;

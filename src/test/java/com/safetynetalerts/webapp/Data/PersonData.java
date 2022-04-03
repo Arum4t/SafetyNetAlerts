@@ -1,12 +1,9 @@
 package com.safetynetalerts.webapp.Data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.safetynetalerts.webapp.model.DTO.ChildAlert;
+import com.safetynetalerts.webapp.model.*;
 import com.safetynetalerts.webapp.model.DTO.PersonAllInfo;
 import com.safetynetalerts.webapp.model.DTO.PersonInfoByFloodZone;
-import com.safetynetalerts.webapp.model.Person;
-import com.safetynetalerts.webapp.model.PersonFireStationResponse;
-import com.safetynetalerts.webapp.model.PersonFireZoneResponse;
 
 
 import java.io.File;
@@ -25,7 +22,7 @@ public class PersonData {
         return objectMapper.readValue(new File("src/test/java/com/safetynetalerts/webapp/Data/json_list_test.json"), JsonModel.class);
     }
 
-    public static Person onePerson(){
+    public static Person onePerson() {
 
         Person person = new Person();
         person.setLastName("Zemicks");
@@ -38,7 +35,8 @@ public class PersonData {
 
         return person;
     }
-    public static List<Person> family(){
+
+    public static List<Person> family() {
 
         List<Person> personList = new ArrayList<>();
         Person person = new Person();
@@ -88,18 +86,20 @@ public class PersonData {
         personList.add(person5);
         return personList;
     }
-    public static Person createPerson(){
+
+    public static Person createPerson() {
         Person person = new Person();
         person.setLastName("Schmidt");
-        person.setAddress("22 rue des écureuils");
+        person.setAddress("22 rue des lions");
         person.setEmail("albert-s@email.com");
         person.setFirstName("Albert");
         person.setPhone("842-872-6222");
         person.setZip("67000");
         person.setCity("Strasbourg");
-       return person;
+        return person;
     }
-    public static Person personCityUpdate(){
+
+    public static Person personCityUpdate() {
         Person person = new Person();
         person.setLastName("Carman");
         person.setAddress("834 Binoc Ave");
@@ -111,7 +111,8 @@ public class PersonData {
 
         return person;
     }
-    public static List<String> getEmailByCity(){
+
+    public static List<String> getEmailByCity() {
         List<String> emailList = new ArrayList<>();
         emailList.add("jaboyd1@email.com");
         emailList.add("drk1@email.com");
@@ -120,25 +121,26 @@ public class PersonData {
         emailList.add("jaboyd3@email.com");
         emailList.add("drk2@email.com");
         emailList.add("tenz2@email.com");
-        emailList.add( "jaboyd4@email.com");
+        emailList.add("jaboyd4@email.com");
         emailList.add("jaboyd5@email.com");
-        emailList.add( "tcoop@ymail.com");
+        emailList.add("tcoop@ymail.com");
         emailList.add("lily@email.com");
         emailList.add("soph@email.com");
-        emailList.add( "ward@email.com");
+        emailList.add("ward@email.com");
         emailList.add("zarc@email.com");
         emailList.add("reg@email.com");
         emailList.add("jpeter1@email.com");
-        emailList.add( "jpeter2@email.com");
+        emailList.add("jpeter2@email.com");
         emailList.add("aly@imail.com");
         emailList.add("bstel1@email.com");
-        emailList.add( "ssanw@email.com");
-        emailList.add(  "bstel2@email.com");
-        emailList.add( "clivfd@ymail.com");
+        emailList.add("ssanw@email.com");
+        emailList.add("bstel2@email.com");
+        emailList.add("clivfd@ymail.com");
         emailList.add("gramps@email.com");
         return emailList;
     }
-    public static Map<String, List<ChildAlert>> listChildAlert(){
+
+    public static Map<String, List<ChildAlert>> listChildAlert() {
         Map<String, List<ChildAlert>> childList = new HashMap<>();
         String name = "Boyd";
         List<ChildAlert> childAlerts = new ArrayList<>();
@@ -158,24 +160,33 @@ public class PersonData {
         childList.put(name, childAlerts);
         return childList;
     }
-    public static List<PersonAllInfo> getPersonAllInfo() throws IOException{
+
+    public static List<PersonAllInfo> getPersonAllInfo() throws IOException {
         return getJsonModel().getFullInfo();
     }
-    public static List<PersonFireStationResponse> getPersonsInfoByStation() throws IOException{
+
+    public static List<PersonFireStationResponse> getPersonsInfoByStation() throws IOException {
         return getJsonModel().getPersonInfoByFireStation();
     }
-    public static List<String> getPhoneAlert() throws IOException{
+
+    public static List<String> getPhoneAlert() throws IOException {
         return getJsonModel().getPhoneAlert();
     }
-    public static List<PersonFireZoneResponse> getFireZone() throws IOException{
+
+    public static List<PersonFireZoneResponse> getFireZone() throws IOException {
         return getJsonModel().getFireZones();
     }
 
-    public static Map<String, List<PersonInfoByFloodZone>> getFloodZone() throws IOException{
+    public static Map<String, List<PersonInfoByFloodZone>> getFloodZone() throws IOException {
         return getJsonModel().getFloodZones();
     }
 
     public static List<Person> personsByFireStation() throws IOException {
         return getJsonModel().getPersonsByFireStation();
     }
+
+    public static List<Person> allPerson() throws IOException {
+        return getJsonModel().getAllPerson();
+    }
+
 }
