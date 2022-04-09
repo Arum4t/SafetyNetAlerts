@@ -4,12 +4,16 @@ I’m currently working on safetynetalerts.
 It's a local web API, reading a specific json files to process informations using Endpoints. 
 This API respects SOLID princips and REST architecture.
 
+---------------------------------------
+
 ##  Run API
 Run jar in `target/`.  
 Default Controller URL `http://localhost:8080/`.   
-You can change port in `src/main/resources/application.properties`  
+You can change port in `src/main/resources/application.properties`.
 
-## Json input file
+---------------------------------------
+
+## Json file
 > example  of the json_list.json : 
 
 ``` 
@@ -80,11 +84,9 @@ You can change port in `src/main/resources/application.properties`
   ]
 }
 ```  
-    
+---------------------------------------  
   
-## Endpoints
-
-### GET  
+## Endpoints 
 
 **http://localhost:8080/fireStations?stationNumber={station_number}**
   
