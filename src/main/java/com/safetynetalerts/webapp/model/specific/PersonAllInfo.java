@@ -1,4 +1,4 @@
-package com.safetynetalerts.webapp.model.DTO;
+package com.safetynetalerts.webapp.model.specific;
 
 import lombok.Data;
 

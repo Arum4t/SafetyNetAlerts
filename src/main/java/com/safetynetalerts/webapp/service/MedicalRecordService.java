@@ -77,9 +77,11 @@ public class MedicalRecordService implements IMedicalRecordService {
         for(MedicalRecord medicalRecord : this.medicalRecords){
             if (person.getFirstName().equals(medicalRecord.getFirstName()) &&
                     person.getLastName().equals(medicalRecord.getLastName())){
+                logger.info("Request get medication successful");
                 return medicalRecord.getMedications();
             }
         }
+        logger.info("Request get medication failed");
         return null;
     }
     @Override
@@ -87,9 +89,11 @@ public class MedicalRecordService implements IMedicalRecordService {
         for(MedicalRecord medicalRecord : this.medicalRecords){
             if (person.getFirstName().equals(medicalRecord.getFirstName()) &&
                     person.getLastName().equals(medicalRecord.getLastName())){
+                logger.info("Request get allergies failed");
                 return medicalRecord.getAllergies();
             }
         }
+        logger.info("Request get allergies failed");
         return null;
     }
     @Override
@@ -99,8 +103,10 @@ public class MedicalRecordService implements IMedicalRecordService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             formatter = formatter.withLocale(Locale.FRANCE);
             LocalDate birthDate = LocalDate.parse(birthdate, formatter);
+            logger.info("Request get age successful");
             return Period.between(birthDate, currentDate).getYears();
         }
+        logger.info("Request get age failed");
         return 0;
     }
 

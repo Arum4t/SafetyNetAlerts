@@ -63,9 +63,11 @@ public class FireStationRepository implements IFireStationRepository {
     public FireStation getFireStationByAddress(String address) {
         for(FireStation fireStation : this.fireStations){
             if(Objects.equals(fireStation.getAddress(), address)){
+                logger.info("Request get firestation address successful");
                 return fireStation;
             }
         }
+        logger.info("Request get firestation address failed");
         return null;
     }
 

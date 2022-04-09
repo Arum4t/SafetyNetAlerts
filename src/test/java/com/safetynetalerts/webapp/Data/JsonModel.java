@@ -1,9 +1,10 @@
 package com.safetynetalerts.webapp.Data;
 
-import com.safetynetalerts.webapp.controller.MedicalRecordControllerTest;
 import com.safetynetalerts.webapp.model.*;
-import com.safetynetalerts.webapp.model.DTO.PersonAllInfo;
-import com.safetynetalerts.webapp.model.DTO.PersonInfoByFloodZone;
+import com.safetynetalerts.webapp.model.specific.PersonAllInfo;
+import com.safetynetalerts.webapp.model.specific.PersonFireStationResponse;
+import com.safetynetalerts.webapp.model.specific.PersonFireZoneResponse;
+import com.safetynetalerts.webapp.model.specific.PersonInfoByFloodZone;
 import lombok.Data;
 
 import java.util.List;

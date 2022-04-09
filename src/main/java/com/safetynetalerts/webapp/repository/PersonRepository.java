@@ -63,10 +63,14 @@ public class PersonRepository implements IPersonRepository{
 
         for (Person person : this.persons) {
             if(Objects.equals(person.getAddress(), address)){
+                logger.info("Request get person by address successful!");
                 personsByAddress.add(person);
             }
+
         }
-        return personsByAddress;
+        if(personsByAddress.isEmpty()){
+            logger.info("Request person failed.");
+        }return personsByAddress;
     }
 
     @Override
@@ -75,6 +79,7 @@ public class PersonRepository implements IPersonRepository{
 
         for (Person person : getAll()) {
             if(person.getCity().compareTo(city) == 0){
+                logger.info("Request get email successful!");
               emailCityList.add(person.getEmail());
             }
         }
@@ -87,8 +92,12 @@ public class PersonRepository implements IPersonRepository{
         List<Person> personByFirstNameAndLastName = new ArrayList<>();
         for (Person person : this.persons){
             if(person.getFirstName() != null &&  person.getLastName() != null){
+                logger.info("Request get person successful!");
                 personByFirstNameAndLastName.add(person);
             }
+        }
+        if(personByFirstNameAndLastName.isEmpty()){
+            logger.info("Request get person failed.");
         }
         return personByFirstNameAndLastName;
     }

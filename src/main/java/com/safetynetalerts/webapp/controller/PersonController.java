@@ -1,9 +1,10 @@
 package com.safetynetalerts.webapp.controller;
 
 import com.safetynetalerts.webapp.model.*;
-import com.safetynetalerts.webapp.model.ChildAlert;
-import com.safetynetalerts.webapp.model.DTO.PersonAllInfo;
-import com.safetynetalerts.webapp.model.DTO.PersonInfoByFloodZone;
+import com.safetynetalerts.webapp.model.specific.ChildAlert;
+import com.safetynetalerts.webapp.model.specific.PersonAllInfo;
+import com.safetynetalerts.webapp.model.specific.PersonFireZoneResponse;
+import com.safetynetalerts.webapp.model.specific.PersonInfoByFloodZone;
 import com.safetynetalerts.webapp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,16 +32,19 @@ public class PersonController {
         public List<String> getEmailByCity (@RequestParam String city){
         return this.personService.getEmailByCity(city);
     }
+    //http://localhost:8080/persons
     @PostMapping("/persons")
         public Person createPerson(@RequestBody Person person){
         return personService.savePerson(person);
 }
 
+    //http://localhost:8080/persons
     @PutMapping("/persons")
         public Person updatePerson(@RequestBody Person person) {
         return personService.updatePerson(person);
     }
 
+    //http://localhost:8080/persons/John/Boyd
     @DeleteMapping("/persons/{firstName}/{lastName}")
     public String deletePerson (@PathVariable("firstName") String firstName,@PathVariable("lastName") String lastName) {
         Boolean ok = personService.deletePerson(firstName, lastName);

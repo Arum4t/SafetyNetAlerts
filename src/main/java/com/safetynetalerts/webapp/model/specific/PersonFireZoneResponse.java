@@ -1,6 +1,5 @@
-package com.safetynetalerts.webapp.model;
+package com.safetynetalerts.webapp.model.specific;
 
-import com.safetynetalerts.webapp.model.DTO.PersonInfoByFireZone;
 import lombok.Data;
 
 import java.util.List;

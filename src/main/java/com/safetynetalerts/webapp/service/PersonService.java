@@ -1,7 +1,7 @@
 package com.safetynetalerts.webapp.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynetalerts.webapp.model.*;
-import com.safetynetalerts.webapp.model.DTO.*;
+import com.safetynetalerts.webapp.model.specific.*;
 import com.safetynetalerts.webapp.repository.DataLoaderRepository;
 import com.safetynetalerts.webapp.repository.FireStationRepository;
 import com.safetynetalerts.webapp.repository.MedicalRecordRepository;
@@ -46,16 +46,18 @@ public class PersonService implements IPersonService {
     @Override
     public Person savePerson(Person person) {
         if (getPerson(person.getEmail()) != null) {
-            logger.info("Entity already exist");
+            logger.info("Request save person failed");
         }
+        logger.info("Request save person successful");
         return this.personRepository.savePerson(person);
+
     }
 
 
     @Override
     public Person updatePerson(Person person) {
         if (getPerson(person.getEmail()) != null) {
-            logger.info("Request successful");
+            logger.info("Request updatePerson successful");
             return this.personRepository.updatePerson(person);
         }
         logger.error("Person not found");
@@ -115,6 +117,11 @@ public class PersonService implements IPersonService {
                 childFamily.putIfAbsent(familyName, childrenFamily);
             }
         }
+        if(childFamily.isEmpty()){
+            logger.info("Request get child alerts failed.");
+            return childFamily;
+
+        }logger.info("Request get child alerts successful!");
         return childFamily;
     }
 
@@ -141,7 +148,11 @@ public class PersonService implements IPersonService {
 
             }
         }
-
+        if(allPersonAllInfo.isEmpty()){
+            logger.info("Request get full information failed.");
+            return allPersonAllInfo;
+        }
+        logger.info("Request get full information successful!");
         return allPersonAllInfo;
     }
 
@@ -150,12 +161,10 @@ public class PersonService implements IPersonService {
         List<Person> persons = getPersonByFireStation(station);
         List<PersonFireStationResponse> personFireStationResponses = new ArrayList<>();
         List<PersonInfoByStation> personList = new ArrayList<>();
-
         int adult = 0;
         int child = 0;
 
         for (Person person : persons) {
-
             MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
             String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
             MedicalRecordService calculateAge = new MedicalRecordService();
@@ -173,15 +182,18 @@ public class PersonService implements IPersonService {
             personInfoByStation.setLastName(person.getLastName());
             personInfoByStation.setAddress(person.getAddress());
             personList.add(personInfoByStation);
-
         }
-
         PersonFireStationResponse personFireStationResponse = new PersonFireStationResponse();
         personFireStationResponse.setPersons(personList);
         personFireStationResponse.setAdult(adult);
         personFireStationResponse.setChild(child);
         personFireStationResponses.add(personFireStationResponse);
 
+        if(personList.isEmpty()){
+            logger.info("Request info by station failed");
+            return personFireStationResponses;
+        }
+        logger.info("Request info by station successful");
         return personFireStationResponses;
 
     }
@@ -200,6 +212,11 @@ public class PersonService implements IPersonService {
                 personByFireStation.add(person);
             }
         }
+        if(personByFireStation.isEmpty()){
+            logger.info("Request person by firestation failed");
+            return personByFireStation;
+        }
+        logger.info("Request person by firestation successful");
         return personByFireStation;
     }
 
@@ -211,7 +228,11 @@ public class PersonService implements IPersonService {
         for (Person person : persons) {
             phoneList.add(person.getPhone());
         }
-
+        if(phoneList.isEmpty()){
+            logger.info("Request phoneList failed");
+            return phoneList;
+        }
+        logger.info("Request phoneList successful");
         return phoneList;
     }
 
@@ -245,27 +266,28 @@ public class PersonService implements IPersonService {
         personFireZoneResponse.setStation(fireStations.getStation());
         fireZones.add(personFireZoneResponse);
 
+        if(fireZoneList.isEmpty()){
+            logger.info("Request fire zone failed");
+            return fireZones;
+        }
+        logger.info("Request fire zone successful");
         return fireZones;
     }
 
     @Override
     public Map<String, List<PersonInfoByFloodZone>> getFloodZone(List<Integer> stations) throws IOException {
-
         List<Person> persons = this.personRepository.getAll();
         Map<String, List<PersonInfoByFloodZone>> foyer = new HashMap<>();
         FireStationService fireStationService = new FireStationService();
 
         for(Person person : persons) {
-
             String address = "Address : " + person.getAddress();
-
             MedicalRecord medicalRecord = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName());
             String birthdate = this.medicalRecordRepository.getMedicalRecordsByFirstNameAndLastName(person.getFirstName(), person.getLastName()).getBirthdate();
             MedicalRecordService calculateAge = new MedicalRecordService();
             int age = calculateAge.calculateAgeFromBirthdate(birthdate);
 
             if (stations.contains(fireStationService.getStationNumberByPersonAddress(person.getAddress()))) {
-
                 List<PersonInfoByFloodZone> personInfoByFloodZones = foyer.get(address);
                 if(personInfoByFloodZones != null){
                     PersonInfoByFloodZone personInfoByFloodZone = new PersonInfoByFloodZone();
@@ -289,9 +311,12 @@ public class PersonService implements IPersonService {
                 personInfoByFloodZones.add(personInfoByFloodZone);
                 foyer.putIfAbsent(address, personInfoByFloodZones);
             }
-
         }
-
+        if(foyer.isEmpty()){
+            logger.info("Request flood zone failed");
+            return foyer;
+        }
+        logger.info("Request flood zone successful");
         return foyer;
        }
 }

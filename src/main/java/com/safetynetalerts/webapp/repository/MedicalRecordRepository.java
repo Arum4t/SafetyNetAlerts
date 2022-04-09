@@ -34,9 +34,11 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
     public MedicalRecord getMedicalRecords(String birthdate) {
         for (MedicalRecord medicalRecord : this.medicalRecords){
             if(Objects.equals(medicalRecord.getBirthdate(), birthdate)){
+                logger.info("Request get medicalRecord successful");
                 return medicalRecord;
             }
         }
+        logger.info("Request get medicalRecord successful");
         return null;
     }
 
@@ -62,9 +64,11 @@ public class MedicalRecordRepository implements IMedicalRecordRepository {
     public MedicalRecord getMedicalRecordsByFirstNameAndLastName(String firstName, String lastName) {
         for (MedicalRecord medicalRecord : this.medicalRecords) {
             if(Objects.equals(medicalRecord.getFirstName(), firstName) && Objects.equals(medicalRecord.getLastName(), lastName)){
+                logger.info("Request get medicalrecord by firstname and last name successful");
                 return medicalRecord;
             }
         }
+        logger.info("Request get medicalrecord by firstname and last name successful");
         return null;
     }
 

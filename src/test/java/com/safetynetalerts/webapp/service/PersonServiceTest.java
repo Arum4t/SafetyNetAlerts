@@ -1,11 +1,11 @@
 package com.safetynetalerts.webapp.service;
 
-import com.safetynetalerts.webapp.model.ChildAlert;
-import com.safetynetalerts.webapp.model.DTO.PersonAllInfo;
-import com.safetynetalerts.webapp.model.DTO.PersonInfoByFloodZone;
+import com.safetynetalerts.webapp.model.specific.ChildAlert;
+import com.safetynetalerts.webapp.model.specific.PersonAllInfo;
+import com.safetynetalerts.webapp.model.specific.PersonInfoByFloodZone;
 import com.safetynetalerts.webapp.model.Person;
-import com.safetynetalerts.webapp.model.PersonFireStationResponse;
-import com.safetynetalerts.webapp.model.PersonFireZoneResponse;
+import com.safetynetalerts.webapp.model.specific.PersonFireStationResponse;
+import com.safetynetalerts.webapp.model.specific.PersonFireZoneResponse;
 import com.safetynetalerts.webapp.repository.DataLoaderRepository;
 import com.safetynetalerts.webapp.Data.PersonData;
 import org.junit.jupiter.api.Assertions;
@@ -62,7 +62,7 @@ public class PersonServiceTest {
         Assertions.assertEquals(getPerson, current);
     }
     @Test
-    public void SavePersonTest() {
+    public void savePersonTest() {
         Person createPerson = PersonData.createPerson();
 
         Person current = personService.savePerson(createPerson);

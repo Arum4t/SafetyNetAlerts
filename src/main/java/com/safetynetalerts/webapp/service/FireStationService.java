@@ -78,9 +78,11 @@ public class FireStationService implements IFireStationService {
 
             FireStation fireStation = this.fireStationRepository.getFireStationByAddress(address);
               if (Objects.equals(person.getAddress(), fireStation.getAddress())){
+                  logger.info("Request get station number by person address successful");
                   return fireStation.getStation();
               }
             }
+        logger.info("Request get station number by person address successful");
         return 0;
         }
 

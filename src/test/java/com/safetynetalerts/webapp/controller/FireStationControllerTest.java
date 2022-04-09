@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynetalerts.webapp.Data.FireStationData;
 import com.safetynetalerts.webapp.Data.PersonData;
 import com.safetynetalerts.webapp.model.*;
+import com.safetynetalerts.webapp.model.specific.PersonFireStationResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

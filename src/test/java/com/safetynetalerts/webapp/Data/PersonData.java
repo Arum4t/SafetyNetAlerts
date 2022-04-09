@@ -2,8 +2,7 @@ package com.safetynetalerts.webapp.Data;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynetalerts.webapp.model.*;
-import com.safetynetalerts.webapp.model.DTO.PersonAllInfo;
-import com.safetynetalerts.webapp.model.DTO.PersonInfoByFloodZone;
+import com.safetynetalerts.webapp.model.specific.*;
 
 
 import java.io.File;

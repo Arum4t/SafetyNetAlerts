@@ -1,6 +1,7 @@
 package com.safetynetalerts.webapp.controller;
 
 import com.safetynetalerts.webapp.model.*;
+import com.safetynetalerts.webapp.model.specific.PersonFireStationResponse;
 import com.safetynetalerts.webapp.service.FireStationService;
 import com.safetynetalerts.webapp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class FireStationController {
