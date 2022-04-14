@@ -7,9 +7,18 @@ This API respects SOLID princips and REST architecture.
 ---------------------------------------
 
 ##  Run API
-Run jar in `target/`.  
+
+Fork and clone the project.
+
+>The following are command you can use in your IDE or command prompt.
+
+Load Maven dependencies `maven install`.
+Generate jar file `mvn clean package`.
+The jar file is in `target/`.  
+Target the file `cd yourPathOfJarFile`.
+Run `java -jar yourJarFile.jar`.
+
 Default Controller URL `http://localhost:8080/`.   
-You can change port in `src/main/resources/application.properties`.
 
 ---------------------------------------
 
